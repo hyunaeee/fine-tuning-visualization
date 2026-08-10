@@ -42,10 +42,28 @@ const goals: Array<{
 const stages = [
   { label: "목표", helper: "맡길 일을 설명해요" },
   { label: "예시", helper: "좋은 답변을 보여줘요" },
-  { label: "학습", helper: "AI가 패턴을 배워요" },
-  { label: "검증", helper: "전후 결과를 비교해요" },
+  { label: "조정", helper: "다이얼로 성향을 맞춰요" },
+  { label: "실시간 검증", helper: "바꾸는 즉시 확인해요" },
   { label: "전달", helper: "고객에게 바로 넘겨요" },
 ];
+
+const testQuestions: Record<GoalId, string[]> = {
+  support: [
+    "주문한 운동화 사이즈를 바꾸고 싶어요.",
+    "상품을 환불하려면 어떻게 해야 하나요?",
+    "배송이 아직 오지 않았어요.",
+  ],
+  brand: [
+    "신제품 텀블러 출시 안내 문구를 작성해줘.",
+    "여름 세일을 알리는 짧은 문구를 써줘.",
+    "첫 구매 고객에게 보내는 환영 문구가 필요해.",
+  ],
+  organize: [
+    "이번 주 회의 기록에서 결정된 할 일을 정리해줘.",
+    "이 문서의 담당자와 마감일을 찾아줘.",
+    "고객 인터뷰에서 반복된 요구사항을 요약해줘.",
+  ],
+};
 
 const audiences: Record<AudienceId, {
   label: string;
@@ -95,9 +113,12 @@ export default function Home() {
   const [prompt, setPrompt] = useState(goals[0].prompt);
   const [fileName, setFileName] = useState("");
   const [exampleCount, setExampleCount] = useState(84);
-  const [training, setTraining] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [advanced, setAdvanced] = useState(false);
+  const [policy, setPolicy] = useState(88);
+  const [warmth, setWarmth] = useState(72);
+  const [concision, setConcision] = useState(58);
+  const [creativity, setCreativity] = useState(26);
+  const [testQuestion, setTestQuestion] = useState(testQuestions.support[0]);
+  const [verifying, setVerifying] = useState(false);
   const [audience, setAudience] = useState<AudienceId>("operator");
   const [copied, setCopied] = useState(false);
   const [bundleReady, setBundleReady] = useState(false);
@@ -108,12 +129,65 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (!training || progress >= 100) return;
-    const timer = window.setInterval(() => {
-      setProgress((value) => Math.min(100, value + 4));
-    }, 90);
-    return () => window.clearInterval(timer);
-  }, [training, progress]);
+    setVerifying(true);
+    const timer = window.setTimeout(() => setVerifying(false), 420);
+    return () => window.clearTimeout(timer);
+  }, [policy, warmth, concision, creativity, testQuestion]);
+
+  const verification = useMemo(() => {
+    const accuracy = Math.min(99, Math.round(58 + policy * 0.38 + (100 - creativity) * 0.06));
+    const tone = Math.min(99, Math.round(52 + warmth * 0.47 + creativity * 0.04));
+    const consistency = Math.min(99, Math.round(61 + policy * 0.24 + (100 - creativity) * 0.17));
+    const safety = Math.min(100, Math.round(66 + policy * 0.37));
+    return {
+      accuracy,
+      tone,
+      consistency,
+      safety,
+      overall: Math.round((accuracy + tone + consistency + safety) / 4),
+    };
+  }, [policy, warmth, creativity]);
+
+  const tuningName = useMemo(() => {
+    const mode = policy >= 75 ? "규칙 준수형" : creativity >= 60 ? "표현 확장형" : "균형형";
+    const task = goal === "support" ? "고객 응대" : goal === "brand" ? "브랜드 문체" : "문서 구조화";
+    return `${mode} ${task} 파인튜닝`;
+  }, [goal, policy, creativity]);
+
+  const liveAnswer = useMemo(() => {
+    const friendlyOpen = warmth >= 65 ? (warmth >= 85 ? "걱정하지 마세요. 바로 도와드릴게요. " : "물론이에요. ") : "";
+    const friendlyClose = warmth >= 62 && concision < 78 ? " 필요한 내용을 알려주시면 이어서 도와드릴게요." : "";
+
+    if (goal === "support") {
+      if (testQuestion.includes("환불")) {
+        const rule = policy >= 70 ? "상품 수령 후 7일 안이며 사용하지 않은 상태라면 환불할 수 있어요." : "환불 가능 여부를 확인해드릴게요.";
+        return `${friendlyOpen}${rule}${concision < 70 ? " 주문 번호와 상품 상태를 알려주세요." : ""}${friendlyClose}`;
+      }
+      if (testQuestion.includes("배송")) {
+        const rule = policy >= 70 ? "주문 내역의 배송 조회에서 현재 위치를 확인할 수 있어요." : "배송 상태를 확인해드릴게요.";
+        return `${friendlyOpen}${rule}${concision < 70 ? " 주문 번호를 보내주시면 지연 여부도 함께 확인하겠습니다." : ""}${friendlyClose}`;
+      }
+      return `${friendlyOpen}${policy >= 70 ? "상품 수령 후 7일 안이라면 무료 교환이 가능합니다." : "사이즈 교환을 도와드릴게요."}${concision < 72 ? " 주문 번호와 원하는 사이즈를 알려주세요." : ""}${friendlyClose}`;
+    }
+
+    if (goal === "brand") {
+      const lead = creativity >= 55 ? "매일의 장면을 조금 더 가볍게." : "매일 쓰기 좋은 제품을 소개합니다.";
+      const body = concision >= 70 ? " 새로운 데일리 텀블러를 만나보세요." : " 가볍고 오래가는 새로운 데일리 텀블러를 지금 만나보세요.";
+      return `${lead}${body}${warmth >= 75 ? " 당신의 하루에 자연스럽게 어울릴 거예요." : ""}`;
+    }
+
+    const format = policy >= 70
+      ? "담당자: 김하나 · 마감일: 8월 16일 · 할 일: 온보딩 초안 공유"
+      : "김하나 님이 8월 16일까지 온보딩 초안을 공유하기로 했습니다.";
+    return concision >= 72 ? format : `${format}\n추가 확인: 디자인팀 검토 일정은 아직 정해지지 않았습니다.`;
+  }, [goal, testQuestion, policy, warmth, concision, creativity]);
+
+  const controls = [
+    { label: "규칙 준수", value: policy, setter: setPolicy, low: "유연", high: "엄격", description: "회사 정책을 우선하는 정도" },
+    { label: "친절한 말투", value: warmth, setter: setWarmth, low: "담백", high: "따뜻", description: "답변의 공감과 친근함" },
+    { label: "간결함", value: concision, setter: setConcision, low: "자세히", high: "짧게", description: "답변 길이와 핵심 밀도" },
+    { label: "표현 다양성", value: creativity, setter: setCreativity, low: "일관", high: "다양", description: "새로운 표현을 허용하는 정도" },
+  ];
 
   function resetProject() {
     setStage(0);
@@ -121,8 +195,11 @@ export default function Home() {
     setPrompt(goals[0].prompt);
     setFileName("");
     setExampleCount(84);
-    setTraining(false);
-    setProgress(0);
+    setPolicy(88);
+    setWarmth(72);
+    setConcision(58);
+    setCreativity(26);
+    setTestQuestion(testQuestions.support[0]);
     setCopied(false);
     setBundleReady(false);
   }
@@ -131,11 +208,7 @@ export default function Home() {
     const item = goals.find((candidate) => candidate.id === id) ?? goals[0];
     setGoal(id);
     setPrompt(item.prompt);
-  }
-
-  function startTraining() {
-    setTraining(true);
-    setProgress(8);
+    setTestQuestion(testQuestions[id][0]);
   }
 
   async function copyLink() {
@@ -172,7 +245,7 @@ export default function Home() {
 
         <div className="sidebar-section">
           <p>프로젝트</p>
-          <button className="project-row selected" type="button" onClick={() => { setGoal("support"); setStage(Math.max(stage, 1)); }}>
+          <button className="project-row selected" type="button" onClick={() => { chooseGoal("support"); setStage(Math.max(stage, 1)); }}>
             <span className="project-icon">CS</span>
             <span><strong>고객 응대 AI</strong><small>방금 수정됨</small></span>
             <i className="project-status ready" />
@@ -242,7 +315,7 @@ export default function Home() {
                 <div className="explainer-title"><span>이후에는 이렇게 진행돼요</span><small>각 단계마다 모델리가 설명합니다</small></div>
                 <div className="explainer-grid">
                   <article><span>01</span><strong>좋은 예시를 모아요</strong><p>질문과 기대 답변을 올리면 형식과 품질을 자동으로 확인해요.</p></article>
-                  <article><span>02</span><strong>차이를 눈으로 확인해요</strong><p>기본 AI와 학습한 AI의 답변을 같은 질문으로 나란히 비교해요.</p></article>
+                  <article><span>02</span><strong>다이얼로 맞추고 바로 시험해요</strong><p>규칙, 말투, 길이를 조절할 때마다 답변과 검증 점수가 즉시 바뀌어요.</p></article>
                   <article><span>03</span><strong>쓸 수 있는 형태로 전달해요</strong><p>링크, 웹 위젯, API, 인계 문서 중 고객에게 맞는 형태로 만들어요.</p></article>
                 </div>
               </div>
@@ -311,75 +384,150 @@ export default function Home() {
                         </div>
                       </div>
 
-                      <div className="panel-footer"><button className="quiet-button" type="button" onClick={() => setStage(0)}>이전</button><button className="primary-action" type="button" onClick={() => setStage(2)}>이 예시로 학습 준비 <span>→</span></button></div>
+                      <div className="panel-footer"><button className="quiet-button" type="button" onClick={() => setStage(0)}>이전</button><button className="primary-action" type="button" onClick={() => setStage(2)}>튜닝 콘솔 열기 <span>→</span></button></div>
                     </div>
                   )}
 
                   {stage === 2 && (
-                    <div className="panel-content">
+                    <div className="panel-content console-content">
                       <div className="assistant-note">
                         <span className="assistant-mark">✳</span>
-                        <div><strong>설정은 모델리가 추천할게요</strong><p>{exampleCount}개의 예시와 “{selectedGoal.title}” 목표를 분석했어요. 처음에는 균형 설정이 비용과 품질 면에서 가장 적합합니다.</p></div>
+                        <div><strong>기계의 다이얼을 맞추듯 조정하세요</strong><p>숫자를 몰라도 괜찮아요. 다이얼을 움직이면 예상 답변과 검증 계기판이 즉시 반응합니다. 만족스러운 지점에서 설정을 고정하면 돼요.</p></div>
                       </div>
 
                       <div className="panel-heading">
-                        <div><span>STEP 2 · TRAIN</span><h2>얼마나 꼼꼼하게 학습할까요?</h2></div>
-                        <span className="plain-badge recommended">자동 추천</span>
+                        <div><span>STEP 2 · TUNING CONSOLE</span><h2>AI의 행동을 직접 조율하세요</h2></div>
+                        <span className={verifying ? "live-badge checking" : "live-badge"}><i /> {verifying ? "재계산 중" : "LIVE"}</span>
                       </div>
 
-                      <div className="effort-options">
-                        <button type="button"><span>빠른 확인</span><strong>약 4분</strong><small>방향을 먼저 볼 때</small></button>
-                        <button type="button" className="selected"><i>추천</i><span>균형 있게</span><strong>약 12분</strong><small>대부분의 업무에 적합</small></button>
-                        <button type="button"><span>최고 품질</span><strong>약 28분</strong><small>최종 배포 전 정교하게</small></button>
+                      <div className="machine-console">
+                        <div className="machine-topbar">
+                          <span className="machine-screw" />
+                          <div><strong>MODELY / BEHAVIOR CONSOLE</strong><small>조작값이 오른쪽 출력에 바로 반영됩니다</small></div>
+                          <div className="machine-lights"><i /><i /><i /></div>
+                          <span className="machine-screw" />
+                        </div>
+
+                        <div className="dial-bank">
+                          {controls.map((control) => (
+                            <label className="control-dial" key={control.label}>
+                              <span className="dial-label">{control.label}</span>
+                              <div className="knob" style={{ "--dial-angle": `${-132 + control.value * 2.64}deg` } as React.CSSProperties}>
+                                <span className="knob-ticks" />
+                                <span className="knob-face"><i /><strong>{control.value}</strong></span>
+                              </div>
+                              <input type="range" min="0" max="100" value={control.value} onChange={(event) => control.setter(Number(event.target.value))} aria-label={control.label} />
+                              <span className="dial-scale"><i>{control.low}</i><i>{control.high}</i></span>
+                              <small>{control.description}</small>
+                            </label>
+                          ))}
+                        </div>
+
+                        <div className="machine-lower">
+                          <div className="learning-modules">
+                            <div className="machine-section-title"><span>LEARNING CHANNELS</span><small>무엇을 학습하나요?</small></div>
+                            <div className="switch-row"><span className="toggle-switch on"><i /></span><p><strong>회사 규칙과 판단 기준</strong><small>교환·환불처럼 반복되는 정책</small></p><b>{policy}%</b></div>
+                            <div className="switch-row"><span className="toggle-switch on"><i /></span><p><strong>말투와 표현 패턴</strong><small>인사, 공감, 문장 마무리 방식</small></p><b>{warmth}%</b></div>
+                            <div className="switch-row"><span className="toggle-switch on"><i /></span><p><strong>답변의 구조와 길이</strong><small>순서, 항목, 간결한 정도</small></p><b>{concision}%</b></div>
+                            <div className="switch-row disabled"><span className="toggle-switch"><i /></span><p><strong>새로운 사실과 최신 지식</strong><small>파인튜닝보다 지식 검색 연결이 적합</small></p><b>OFF</b></div>
+                          </div>
+
+                          <div className="signal-display">
+                            <div className="machine-section-title"><span>TUNING EFFECT</span><small>현재 만들어지는 성향</small></div>
+                            <div className="signal-name"><span>PROFILE</span><strong>{tuningName}</strong></div>
+                            <div className="signal-bars">
+                              <div><span>RULES</span><i><b style={{ width: `${policy}%` }} /></i></div>
+                              <div><span>TONE</span><i><b style={{ width: `${warmth}%` }} /></i></div>
+                              <div><span>FORMAT</span><i><b style={{ width: `${concision}%` }} /></i></div>
+                              <div><span>VARIETY</span><i><b style={{ width: `${creativity}%` }} /></i></div>
+                            </div>
+                            <div className="effect-tags">
+                              <span>{policy >= 70 ? "규칙 우선" : "상황 판단"}</span>
+                              <span>{warmth >= 65 ? "친절한 말투" : "담백한 말투"}</span>
+                              <span>{concision >= 65 ? "짧은 답변" : "상세한 답변"}</span>
+                              <span>{creativity < 45 ? "일관성 중심" : "다양한 표현"}</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="training-summary">
-                        <div><span>사용 예시</span><strong>{exampleCount}개</strong></div>
-                        <div><span>예상 비용</span><strong>첫 학습 무료</strong></div>
-                        <div><span>완료 알림</span><strong>웹 + 이메일</strong></div>
+                      <div className="instant-preview">
+                        <div className="preview-terminal-head"><span><i /> INSTANT PREVIEW</span><small>{verifying ? "설정 반영 중…" : "0.2초 전 검증됨"}</small></div>
+                        <div className="preview-terminal-body"><span>TEST INPUT</span><p>{testQuestion}</p><span>TUNED OUTPUT</span><strong>{liveAnswer}</strong></div>
+                        <div className="preview-score"><span>예상 검증 점수</span><strong>{verification.overall}</strong><i><b style={{ width: `${verification.overall}%` }} /></i></div>
                       </div>
 
-                      <button className="advanced-row" type="button" onClick={() => setAdvanced((value) => !value)} aria-expanded={advanced}><span>전문가 설정</span><small>모델·반복 횟수를 직접 선택할 수 있어요</small><i>{advanced ? "−" : "+"}</i></button>
-                      {advanced && <div className="advanced-settings"><label>기반 모델<select defaultValue="auto"><option value="auto">목표에 맞게 자동 선택</option><option value="fast">빠른 모델</option><option value="quality">고품질 모델</option></select></label><label>학습 반복<select defaultValue="3"><option value="3">3회 · 추천</option><option value="5">5회</option></select></label></div>}
-
-                      <div className="training-run">
-                        <div className="run-copy"><span className={training ? "run-indicator active" : "run-indicator"}>{progress === 100 ? "✓" : "↗"}</span><div><strong>{progress === 100 ? "학습이 완료됐습니다" : training ? "AI가 예시를 배우는 중입니다" : "학습할 준비가 됐습니다"}</strong><small>{progress === 100 ? "같은 질문으로 전후 결과를 비교해 보세요." : training ? "창을 닫아도 안전하게 계속됩니다." : "시작 후에도 언제든 중단할 수 있어요."}</small></div></div>
-                        {training && <div className="run-progress"><i style={{ width: `${progress}%` }} /><span>{progress}%</span></div>}
-                        {!training ? <button type="button" onClick={startTraining}>학습 시작</button> : progress === 100 ? <button type="button" onClick={() => setStage(3)}>결과 비교</button> : <span className="running-label">약 12분 남음</span>}
+                      <div className="fine-tune-explainer">
+                        <span>이 파인튜닝의 효과</span>
+                        <p>새로운 지식을 외우게 하기보다, <strong>같은 상황에서 회사가 원하는 방식으로 판단하고 말하는 패턴</strong>을 반복해서 익히게 합니다.</p>
                       </div>
 
-                      <div className="panel-footer"><button className="quiet-button" type="button" onClick={() => setStage(1)}>이전</button></div>
+                      <div className="panel-footer"><button className="quiet-button" type="button" onClick={() => setStage(1)}>이전</button><button className="primary-action" type="button" onClick={() => setStage(3)}>이 설정으로 실시간 테스트 <span>→</span></button></div>
                     </div>
                   )}
 
                   {stage === 3 && (
-                    <div className="panel-content">
+                    <div className="panel-content test-lab-content">
                       <div className="assistant-note success-note">
-                        <span className="assistant-mark">✓</span>
-                        <div><strong>학습 전보다 31점 좋아졌어요</strong><p>말투와 정책 정확도가 크게 개선됐습니다. 실제 고객 질문 24개로 확인했고, 22개가 기준을 통과했어요.</p></div>
+                        <span className="assistant-mark">↻</span>
+                        <div><strong>질문이나 다이얼을 바꾸면 즉시 다시 검사합니다</strong><p>저장 버튼이나 새 학습을 기다릴 필요 없이, 바뀐 답변과 정확성·말투·안전성 점수를 같은 화면에서 바로 확인하세요.</p></div>
                       </div>
 
                       <div className="panel-heading">
-                        <div><span>STEP 3 · EVALUATE</span><h2>무엇이 달라졌는지 확인하세요</h2></div>
-                        <span className="score-pill">92 / 100</span>
+                        <div><span>STEP 3 · LIVE TEST BENCH</span><h2>바꿔보고, 바로 검증하세요</h2></div>
+                        <span className={verifying ? "score-pill verifying" : "score-pill"}>{verifying ? "검사 중" : `${verification.overall} / 100`}</span>
                       </div>
 
-                      <div className="test-question"><span>테스트 질문</span><strong>{selectedGoal.example}</strong><button type="button">다른 질문</button></div>
+                      <div className="test-bench">
+                        <div className="bench-topbar"><span className="machine-screw" /><strong>LIVE EVALUATION UNIT</strong><div><i className={verifying ? "blink" : ""} /> {verifying ? "RUNNING" : "VERIFIED"}</div><span className="machine-screw" /></div>
 
-                      <div className="compare-grid">
-                        <article><div><span>학습 전</span><small>기본 AI</small></div><p>주문 정보에서 사이즈 변경 옵션을 확인하세요. 교환 정책은 판매자에게 문의하시기 바랍니다.</p><footer><span>정책 반영</span><strong className="low">부족</strong></footer></article>
-                        <article className="improved"><div><span>학습 후</span><small>나의 AI · v1</small></div><p>{selectedGoal.answer}</p><footer><span>정책 반영</span><strong>정확</strong></footer></article>
+                        <div className="bench-controls">
+                          <div className="test-input-area">
+                            <label htmlFor="live-test-question">TEST INPUT / 질문을 바꿔보세요</label>
+                            <textarea id="live-test-question" value={testQuestion} onChange={(event) => setTestQuestion(event.target.value)} />
+                            <div className="test-presets">
+                              {testQuestions[goal].map((question, index) => <button key={question} type="button" className={testQuestion === question ? "active" : ""} onClick={() => setTestQuestion(question)}>테스트 {index + 1}</button>)}
+                            </div>
+                          </div>
+                          <div className="mini-controls">
+                            {controls.map((control) => (
+                              <label key={control.label}><span>{control.label}</span><input type="range" min="0" max="100" value={control.value} onChange={(event) => control.setter(Number(event.target.value))} /><strong>{control.value}</strong></label>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="live-output-grid">
+                          <article className="live-response">
+                            <header><span>TUNED OUTPUT</span><small>modely / {goal}-v1</small></header>
+                            <p className={verifying ? "updating" : ""}>{liveAnswer}</p>
+                            <footer><span className="response-type">{tuningName}</span><span>{liveAnswer.length}자</span></footer>
+                          </article>
+
+                          <aside className="validation-meter">
+                            <div className="meter-score"><span>LIVE SCORE</span><strong>{verification.overall}</strong><small>/ 100</small></div>
+                            <div className="meter-list">
+                              <div><span>정확성</span><i><b style={{ width: `${verification.accuracy}%` }} /></i><strong>{verification.accuracy}</strong></div>
+                              <div><span>말투</span><i><b style={{ width: `${verification.tone}%` }} /></i><strong>{verification.tone}</strong></div>
+                              <div><span>일관성</span><i><b style={{ width: `${verification.consistency}%` }} /></i><strong>{verification.consistency}</strong></div>
+                              <div><span>안전성</span><i><b style={{ width: `${verification.safety}%` }} /></i><strong>{verification.safety}</strong></div>
+                            </div>
+                          </aside>
+                        </div>
                       </div>
 
-                      <div className="metric-grid">
-                        <div><span>답변 정확성</span><strong>92</strong><i><b style={{ width: "92%" }} /></i></div>
-                        <div><span>브랜드 말투</span><strong>96</strong><i><b style={{ width: "96%" }} /></i></div>
-                        <div><span>금지 답변 회피</span><strong>100</strong><i><b style={{ width: "100%" }} /></i></div>
+                      <div className="verification-grid">
+                        <div><span className="check-led pass" /><p><strong>회사 규칙 반영</strong><small>{policy >= 70 ? "교환·환불 기준이 정확히 포함됨" : "규칙 강도를 조금 높이는 것을 추천"}</small></p><b>{policy >= 70 ? "PASS" : "CHECK"}</b></div>
+                        <div><span className="check-led pass" /><p><strong>말투 일치</strong><small>{warmth >= 65 ? "친절한 인사와 도움 제안이 포함됨" : "현재는 담백하고 직접적인 말투"}</small></p><b>PASS</b></div>
+                        <div><span className={creativity > 65 ? "check-led warn" : "check-led pass"} /><p><strong>답변 일관성</strong><small>{creativity > 65 ? "표현 변화가 커질 수 있어요" : "질문이 달라도 같은 기준을 유지함"}</small></p><b>{creativity > 65 ? "WATCH" : "PASS"}</b></div>
                       </div>
 
-                      <div className="review-note"><span>검증 기준</span><p>“정답”만 보는 것이 아니라 <strong>정확성, 말투, 안전성</strong>을 각각 확인합니다. 이 점수는 고객에게 전달되는 성능 보고서에도 포함돼요.</p></div>
+                      <div className="test-history">
+                        <div className="section-label"><strong>자동 테스트 기록</strong><span>변경할 때마다 한 줄씩 기록돼요</span></div>
+                        <div className="history-table"><span>방금</span><p>{testQuestion}</p><strong>{verification.overall}점</strong><i>통과</i></div>
+                        <div className="history-table muted"><span>2분 전</span><p>{testQuestions[goal][1]}</p><strong>{Math.max(0, verification.overall - 3)}점</strong><i>통과</i></div>
+                      </div>
 
-                      <div className="panel-footer"><button className="quiet-button" type="button" onClick={() => setStage(2)}>다시 학습</button><button className="primary-action" type="button" onClick={() => setStage(4)}>고객에게 전달하기 <span>→</span></button></div>
+                      <div className="panel-footer"><button className="quiet-button" type="button" onClick={() => setStage(2)}>다이얼 다시 조정</button><button className="primary-action" type="button" onClick={() => setStage(4)}>이 결과로 고객에게 전달 <span>→</span></button></div>
                     </div>
                   )}
 
@@ -438,8 +586,9 @@ export default function Home() {
                   <dl className="context-list">
                     <div><dt>예시 데이터</dt><dd>{exampleCount}개</dd></div>
                     <div><dt>품질 상태</dt><dd className="positive">좋음</dd></div>
+                    <div><dt>튜닝 유형</dt><dd>{policy >= 75 ? "규칙 준수형" : "균형형"}</dd></div>
                     <div><dt>현재 버전</dt><dd>v1</dd></div>
-                    <div><dt>검증 점수</dt><dd>{stage >= 3 ? "92 / 100" : "대기 중"}</dd></div>
+                    <div><dt>검증 점수</dt><dd>{stage >= 2 ? `${verification.overall} / 100` : "대기 중"}</dd></div>
                   </dl>
                   <div className="context-divider" />
                   <div className="stage-explanation"><span>지금 하는 일</span><strong>{stages[stage].label}</strong><p>{stages[stage].helper}. 완료하면 다음 단계로 이어집니다.</p></div>

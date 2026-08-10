@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const title = "모델리 | 만들고, 검증하고, 고객에게 전달하는 AI";
+const title = "모델리 | 다이얼로 조정하고 바로 검증하는 AI 튜닝 콘솔";
 const description =
-  "전문 용어 없이 파인튜닝하고, 결과를 검증한 뒤 링크·웹 위젯·API·인계 문서로 전달하는 AI 워크스페이스입니다.";
+  "다이얼과 스위치로 AI의 규칙, 말투, 길이와 표현을 조정하고 테스트를 바꿀 때마다 결과를 즉시 검증하는 파인튜닝 워크스페이스입니다.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -22,13 +22,13 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       type: "website",
-      images: [{ url: `${origin}/og.png`, width: 1200, height: 630, alt: "모델리 파인튜닝 워크스페이스" }],
+      images: [{ url: `${origin}/og-console.png`, width: 1200, height: 630, alt: "모델리 라이브 튜닝 콘솔" }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [`${origin}/og.png`],
+      images: [`${origin}/og-console.png`],
     },
   };
 }
