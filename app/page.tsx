@@ -4,6 +4,28 @@ import { useEffect, useMemo, useState } from "react";
 
 type GoalId = "support" | "brand" | "organize";
 type AudienceId = "operator" | "web" | "developer" | "agency";
+type ModelId =
+  | "gpt-5.6-sol"
+  | "gpt-5.6-terra"
+  | "gpt-5.6-luna"
+  | "gpt-4.1"
+  | "gpt-4.1-mini"
+  | "gpt-4.1-nano"
+  | "o4-mini";
+
+type Recipe = {
+  id: string;
+  name: string;
+  goal: GoalId;
+  modelId: ModelId;
+  policy: number;
+  warmth: number;
+  concision: number;
+  creativity: number;
+  createdAt: string;
+};
+
+const RECIPE_STORAGE_KEY = "modely-recipes-v1";
 
 const goals: Array<{
   id: GoalId;
@@ -42,9 +64,135 @@ const goals: Array<{
 const stages = [
   { label: "목표", helper: "맡길 일을 설명해요" },
   { label: "예시", helper: "좋은 답변을 보여줘요" },
-  { label: "조정", helper: "다이얼로 성향을 맞춰요" },
+  { label: "모델·조정", helper: "모델과 레시피를 맞춰요" },
   { label: "실시간 검증", helper: "바꾸는 즉시 확인해요" },
   { label: "전달", helper: "고객에게 바로 넘겨요" },
+];
+
+const modelCatalog: Array<{
+  id: ModelId;
+  name: string;
+  role: string;
+  bestFor: string;
+  method: string;
+  availability: string;
+  availabilityTone: "current" | "legacy";
+  speed: string;
+  fit: Record<GoalId, number>;
+}> = [
+  {
+    id: "gpt-5.6-sol",
+    name: "GPT-5.6 Sol",
+    role: "최고 품질",
+    bestFor: "복잡한 판단 · 교사 답변 · 최종 평가",
+    method: "프롬프트 + 평가",
+    availability: "현재 API",
+    availabilityTone: "current",
+    speed: "정밀",
+    fit: { support: 92, brand: 97, organize: 91 },
+  },
+  {
+    id: "gpt-5.6-terra",
+    name: "GPT-5.6 Terra",
+    role: "균형형",
+    bestFor: "고객 응대 · 브랜드 문체 · 일반 업무",
+    method: "프롬프트 + 평가",
+    availability: "현재 API",
+    availabilityTone: "current",
+    speed: "균형",
+    fit: { support: 98, brand: 96, organize: 96 },
+  },
+  {
+    id: "gpt-5.6-luna",
+    name: "GPT-5.6 Luna",
+    role: "대량 처리",
+    bestFor: "분류 · 추출 · 반복 문의",
+    method: "프롬프트 + 평가",
+    availability: "현재 API",
+    availabilityTone: "current",
+    speed: "고속",
+    fit: { support: 95, brand: 86, organize: 98 },
+  },
+  {
+    id: "gpt-4.1",
+    name: "GPT-4.1",
+    role: "정교한 SFT",
+    bestFor: "특정 형식 · 번역 · 지시 준수 보정",
+    method: "SFT",
+    availability: "기존 FT 계정만",
+    availabilityTone: "legacy",
+    speed: "정밀",
+    fit: { support: 90, brand: 92, organize: 88 },
+  },
+  {
+    id: "gpt-4.1-mini",
+    name: "GPT-4.1 mini",
+    role: "SFT 균형형",
+    bestFor: "응대 자동화 · 문체 · 고정 형식",
+    method: "SFT",
+    availability: "기존 FT 계정만",
+    availabilityTone: "legacy",
+    speed: "빠름",
+    fit: { support: 93, brand: 90, organize: 92 },
+  },
+  {
+    id: "gpt-4.1-nano",
+    name: "GPT-4.1 nano",
+    role: "SFT 경량형",
+    bestFor: "분류 · 필드 추출 · 짧은 구조화",
+    method: "SFT",
+    availability: "기존 FT 계정만",
+    availabilityTone: "legacy",
+    speed: "매우 빠름",
+    fit: { support: 84, brand: 78, organize: 94 },
+  },
+  {
+    id: "o4-mini",
+    name: "o4-mini",
+    role: "전문 추론 RFT",
+    bestFor: "채점 가능한 전문 판단 · 도메인 추론",
+    method: "RFT",
+    availability: "기존 FT 계정만",
+    availabilityTone: "legacy",
+    speed: "추론",
+    fit: { support: 86, brand: 74, organize: 88 },
+  },
+];
+
+const presetRecipes: Recipe[] = [
+  {
+    id: "preset-support",
+    name: "정책 먼저, 친절하게",
+    goal: "support",
+    modelId: "gpt-5.6-terra",
+    policy: 92,
+    warmth: 78,
+    concision: 64,
+    creativity: 16,
+    createdAt: "기본 레시피",
+  },
+  {
+    id: "preset-brand",
+    name: "차분한 브랜드 보이스",
+    goal: "brand",
+    modelId: "gpt-5.6-sol",
+    policy: 72,
+    warmth: 68,
+    concision: 58,
+    creativity: 62,
+    createdAt: "기본 레시피",
+  },
+  {
+    id: "preset-organize",
+    name: "JSON처럼 정확한 정리",
+    goal: "organize",
+    modelId: "gpt-5.6-luna",
+    policy: 96,
+    warmth: 34,
+    concision: 88,
+    creativity: 8,
+    createdAt: "기본 레시피",
+  },
 ];
 
 const testQuestions: Record<GoalId, string[]> = {
@@ -122,16 +270,44 @@ export default function Home() {
   const [audience, setAudience] = useState<AudienceId>("operator");
   const [copied, setCopied] = useState(false);
   const [bundleReady, setBundleReady] = useState(false);
+  const [selectedModelId, setSelectedModelId] = useState<ModelId>("gpt-5.6-terra");
+  const [savedRecipes, setSavedRecipes] = useState<Recipe[]>([]);
+  const [recipeNotice, setRecipeNotice] = useState("");
 
   const selectedGoal = useMemo(
     () => goals.find((item) => item.id === goal) ?? goals[0],
     [goal],
   );
 
+  const selectedModel = useMemo(
+    () => modelCatalog.find((item) => item.id === selectedModelId) ?? modelCatalog[1],
+    [selectedModelId],
+  );
+
+  const recommendedModels = useMemo(
+    () => [...modelCatalog].sort((a, b) => b.fit[goal] - a.fit[goal]),
+    [goal],
+  );
+
   useEffect(() => {
-    setVerifying(true);
-    const timer = window.setTimeout(() => setVerifying(false), 420);
+    const timer = window.setTimeout(() => {
+      try {
+        const stored = window.localStorage.getItem(RECIPE_STORAGE_KEY);
+        if (stored) setSavedRecipes(JSON.parse(stored) as Recipe[]);
+      } catch {
+        setSavedRecipes([]);
+      }
+    }, 0);
     return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const startTimer = window.setTimeout(() => setVerifying(true), 0);
+    const endTimer = window.setTimeout(() => setVerifying(false), 420);
+    return () => {
+      window.clearTimeout(startTimer);
+      window.clearTimeout(endTimer);
+    };
   }, [policy, warmth, concision, creativity, testQuestion]);
 
   const verification = useMemo(() => {
@@ -151,7 +327,7 @@ export default function Home() {
   const tuningName = useMemo(() => {
     const mode = policy >= 75 ? "규칙 준수형" : creativity >= 60 ? "표현 확장형" : "균형형";
     const task = goal === "support" ? "고객 응대" : goal === "brand" ? "브랜드 문체" : "문서 구조화";
-    return `${mode} ${task} 파인튜닝`;
+    return `${mode} ${task} 레시피`;
   }, [goal, policy, creativity]);
 
   const liveAnswer = useMemo(() => {
@@ -200,8 +376,10 @@ export default function Home() {
     setConcision(58);
     setCreativity(26);
     setTestQuestion(testQuestions.support[0]);
+    setSelectedModelId("gpt-5.6-terra");
     setCopied(false);
     setBundleReady(false);
+    setRecipeNotice("");
   }
 
   function chooseGoal(id: GoalId) {
@@ -225,6 +403,53 @@ export default function Home() {
     if (audience === "operator") void copyLink();
   }
 
+  function openStudio(anchor: "model-library" | "recipe-book") {
+    setStage(2);
+    window.setTimeout(() => document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  }
+
+  function persistRecipes(next: Recipe[]) {
+    setSavedRecipes(next);
+    try {
+      window.localStorage.setItem(RECIPE_STORAGE_KEY, JSON.stringify(next));
+    } catch {
+      // The prototype still works when browser storage is unavailable.
+    }
+  }
+
+  function saveCurrentRecipe() {
+    const now = new Date();
+    const recipe: Recipe = {
+      id: `${Date.now()}`,
+      name: `${selectedGoal.title.replace(" AI", "")} · ${selectedModel.name}`,
+      goal,
+      modelId: selectedModelId,
+      policy,
+      warmth,
+      concision,
+      creativity,
+      createdAt: now.toLocaleDateString("ko-KR", { month: "short", day: "numeric" }),
+    };
+    persistRecipes([recipe, ...savedRecipes]);
+    setRecipeNotice(`“${recipe.name}” 레시피를 이 기기에 저장했어요.`);
+  }
+
+  function loadRecipe(recipe: Recipe) {
+    chooseGoal(recipe.goal);
+    setSelectedModelId(recipe.modelId);
+    setPolicy(recipe.policy);
+    setWarmth(recipe.warmth);
+    setConcision(recipe.concision);
+    setCreativity(recipe.creativity);
+    setStage(2);
+    setRecipeNotice(`“${recipe.name}” 레시피를 조리대에 불러왔어요.`);
+  }
+
+  function deleteRecipe(id: string) {
+    persistRecipes(savedRecipes.filter((recipe) => recipe.id !== id));
+    setRecipeNotice("저장한 레시피를 삭제했어요.");
+  }
+
   return (
     <main className="app-frame">
       <aside className="sidebar">
@@ -239,6 +464,8 @@ export default function Home() {
 
         <nav className="sidebar-nav" aria-label="워크스페이스 메뉴">
           <button className="nav-item active" type="button"><span>⌂</span> 만들기</button>
+          <button className="nav-item" type="button" onClick={() => openStudio("model-library")}><span>▦</span> 모델 라이브러리 <i>7</i></button>
+          <button className="nav-item" type="button" onClick={() => openStudio("recipe-book")}><span>≡</span> 레시피 북 <i>{savedRecipes.length}</i></button>
           <button className="nav-item" type="button" onClick={() => setStage(4)}><span>↗</span> 전달함 <i>2</i></button>
           <button className="nav-item" type="button"><span>◫</span> 사용 기록</button>
         </nav>
@@ -259,9 +486,9 @@ export default function Home() {
 
         <div className="sidebar-spacer" />
         <div className="plan-card">
-          <div><span>이번 달 사용량</span><strong>18%</strong></div>
-          <div className="plan-track"><i /></div>
-          <small>첫 번째 실제 학습까지 무료</small>
+          <div><span>내 레시피</span><strong>{savedRecipes.length}개</strong></div>
+          <div className="plan-track"><i style={{ width: `${Math.min(100, savedRecipes.length * 18)}%` }} /></div>
+          <small>설정은 이 기기에 안전하게 저장</small>
         </div>
         <button className="profile-row" type="button">
           <span className="profile-avatar">M</span>
@@ -315,7 +542,7 @@ export default function Home() {
                 <div className="explainer-title"><span>이후에는 이렇게 진행돼요</span><small>각 단계마다 모델리가 설명합니다</small></div>
                 <div className="explainer-grid">
                   <article><span>01</span><strong>좋은 예시를 모아요</strong><p>질문과 기대 답변을 올리면 형식과 품질을 자동으로 확인해요.</p></article>
-                  <article><span>02</span><strong>다이얼로 맞추고 바로 시험해요</strong><p>규칙, 말투, 길이를 조절할 때마다 답변과 검증 점수가 즉시 바뀌어요.</p></article>
+                  <article><span>02</span><strong>모델을 고르고 레시피로 저장해요</strong><p>목적별 추천 모델을 고른 뒤 규칙, 말투, 길이를 맞춰 다시 쓸 수 있는 레시피로 보관해요.</p></article>
                   <article><span>03</span><strong>쓸 수 있는 형태로 전달해요</strong><p>링크, 웹 위젯, API, 인계 문서 중 고객에게 맞는 형태로 만들어요.</p></article>
                 </div>
               </div>
@@ -400,6 +627,44 @@ export default function Home() {
                         <span className={verifying ? "live-badge checking" : "live-badge"}><i /> {verifying ? "재계산 중" : "LIVE"}</span>
                       </div>
 
+                      <div className="platform-update">
+                        <span>OFFICIAL UPDATE · 2026.08</span>
+                        <div><strong>새 프로젝트는 ‘프롬프트 + 평가 레시피’가 기본입니다</strong><p>OpenAI의 기존 SFT·RFT는 현재 신규 사용자가 시작할 수 없어요. 기존 파인튜닝 고객용 모델은 별도로 표시하고, 나머지는 현재 API에서 재사용 가능한 레시피로 조정합니다.</p></div>
+                        <a href="https://developers.openai.com/api/docs/guides/supervised-fine-tuning" target="_blank" rel="noreferrer">공식 기준 ↗</a>
+                      </div>
+
+                      <section className="model-library" id="model-library">
+                        <div className="machine-section-title library-title">
+                          <div><span>MODEL RACK / 목적별 모델</span><small>{selectedGoal.title}에 맞는 순서로 자동 정렬</small></div>
+                          <strong>{selectedModel.name}</strong>
+                        </div>
+                        <div className="model-grid">
+                          {recommendedModels.map((model, index) => (
+                            <button
+                              key={model.id}
+                              type="button"
+                              className={selectedModelId === model.id ? "model-card selected" : "model-card"}
+                              onClick={() => setSelectedModelId(model.id)}
+                            >
+                              <span className="model-rank">{String(index + 1).padStart(2, "0")}</span>
+                              <span className={`availability ${model.availabilityTone}`}>{model.availability}</span>
+                              <strong>{model.name}</strong>
+                              <small>{model.role} · {model.speed}</small>
+                              <p>{model.bestFor}</p>
+                              <div><span>{model.method}</span><b>{model.fit[goal]}% 적합</b></div>
+                              {index === 0 && <i>이 목적의 추천</i>}
+                            </button>
+                          ))}
+                        </div>
+                      </section>
+
+                      <div className="active-recipe-strip">
+                        <span className="stove-light" />
+                        <div><small>NOW COOKING</small><strong>{selectedModel.name} × {tuningName}</strong></div>
+                        <span>{selectedModel.method}</span>
+                        <button type="button" onClick={saveCurrentRecipe}>현재 레시피 저장 ＋</button>
+                      </div>
+
                       <div className="machine-console">
                         <div className="machine-topbar">
                           <span className="machine-screw" />
@@ -451,6 +716,56 @@ export default function Home() {
                         </div>
                       </div>
 
+                      <section className="recipe-book" id="recipe-book">
+                        <div className="recipe-book-head">
+                          <div><span>RECIPE BOOK</span><h3>잘 맞춘 조리법은 저장해두세요</h3><p>모델, 목적, 네 개의 다이얼 값을 한 번에 저장하고 언제든 다시 불러옵니다.</p></div>
+                          <button type="button" onClick={saveCurrentRecipe}>이 조합 저장</button>
+                        </div>
+
+                        <div className="recipe-formula">
+                          <div><span>BASE</span><strong>{selectedModel.name}</strong><small>{selectedModel.method}</small></div>
+                          <i>＋</i>
+                          <div><span>INGREDIENTS</span><strong>{exampleCount}개 예시</strong><small>{selectedGoal.title}</small></div>
+                          <i>＋</i>
+                          <div><span>SEASONING</span><strong>{policy} · {warmth} · {concision} · {creativity}</strong><small>규칙 · 말투 · 길이 · 다양성</small></div>
+                          <i>＝</i>
+                          <div className="formula-score"><span>TASTE TEST</span><strong>{verification.overall}점</strong><small>실시간 검증 예상</small></div>
+                        </div>
+
+                        {recipeNotice && <div className="recipe-notice"><span>✓</span>{recipeNotice}</div>}
+
+                        <div className="recipe-shelf">
+                          <div className="shelf-title"><strong>바로 쓰는 기본 레시피</strong><span>목적에 맞게 미리 조리됨</span></div>
+                          <div className="recipe-cards">
+                            {presetRecipes.map((recipe) => (
+                              <article className="recipe-card" key={recipe.id}>
+                                <span>{recipe.goal === "support" ? "CS" : recipe.goal === "brand" ? "BR" : "DOC"}</span>
+                                <div><strong>{recipe.name}</strong><small>{modelCatalog.find((model) => model.id === recipe.modelId)?.name}</small></div>
+                                <button type="button" onClick={() => loadRecipe(recipe)}>불러오기</button>
+                              </article>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="recipe-shelf saved-shelf">
+                          <div className="shelf-title"><strong>내가 저장한 레시피</strong><span>{savedRecipes.length}개 · 이 기기에 저장됨</span></div>
+                          {savedRecipes.length === 0 ? (
+                            <button className="empty-recipe" type="button" onClick={saveCurrentRecipe}><span>＋</span><strong>첫 레시피 저장하기</strong><small>현재 모델과 다이얼 설정이 그대로 담깁니다.</small></button>
+                          ) : (
+                            <div className="recipe-cards">
+                              {savedRecipes.map((recipe) => (
+                                <article className="recipe-card saved" key={recipe.id}>
+                                  <span>MY</span>
+                                  <div><strong>{recipe.name}</strong><small>{recipe.createdAt} · {recipe.policy}/{recipe.warmth}/{recipe.concision}/{recipe.creativity}</small></div>
+                                  <button type="button" onClick={() => loadRecipe(recipe)}>적용</button>
+                                  <button className="delete-recipe" type="button" aria-label={`${recipe.name} 삭제`} onClick={() => deleteRecipe(recipe.id)}>×</button>
+                                </article>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </section>
+
                       <div className="instant-preview">
                         <div className="preview-terminal-head"><span><i /> INSTANT PREVIEW</span><small>{verifying ? "설정 반영 중…" : "0.2초 전 검증됨"}</small></div>
                         <div className="preview-terminal-body"><span>TEST INPUT</span><p>{testQuestion}</p><span>TUNED OUTPUT</span><strong>{liveAnswer}</strong></div>
@@ -458,8 +773,8 @@ export default function Home() {
                       </div>
 
                       <div className="fine-tune-explainer">
-                        <span>이 파인튜닝의 효과</span>
-                        <p>새로운 지식을 외우게 하기보다, <strong>같은 상황에서 회사가 원하는 방식으로 판단하고 말하는 패턴</strong>을 반복해서 익히게 합니다.</p>
+                        <span>이 레시피의 효과</span>
+                        <p>{selectedModel.availabilityTone === "current" ? "모델 자체를 다시 학습시키지 않아도, " : "기존 파인튜닝 계정이라면 학습 설정으로 활용하고, "}<strong>같은 상황에서 회사가 원하는 방식으로 판단하고 말하는 패턴</strong>을 프롬프트와 평가 기준으로 반복 재현합니다.</p>
                       </div>
 
                       <div className="panel-footer"><button className="quiet-button" type="button" onClick={() => setStage(1)}>이전</button><button className="primary-action" type="button" onClick={() => setStage(3)}>이 설정으로 실시간 테스트 <span>→</span></button></div>
@@ -498,7 +813,7 @@ export default function Home() {
 
                         <div className="live-output-grid">
                           <article className="live-response">
-                            <header><span>TUNED OUTPUT</span><small>modely / {goal}-v1</small></header>
+                            <header><span>TUNED OUTPUT</span><small>{selectedModel.name} / {goal}-v1</small></header>
                             <p className={verifying ? "updating" : ""}>{liveAnswer}</p>
                             <footer><span className="response-type">{tuningName}</span><span>{liveAnswer.length}자</span></footer>
                           </article>
@@ -518,7 +833,6 @@ export default function Home() {
                       <div className="verification-grid">
                         <div><span className="check-led pass" /><p><strong>회사 규칙 반영</strong><small>{policy >= 70 ? "교환·환불 기준이 정확히 포함됨" : "규칙 강도를 조금 높이는 것을 추천"}</small></p><b>{policy >= 70 ? "PASS" : "CHECK"}</b></div>
                         <div><span className="check-led pass" /><p><strong>말투 일치</strong><small>{warmth >= 65 ? "친절한 인사와 도움 제안이 포함됨" : "현재는 담백하고 직접적인 말투"}</small></p><b>PASS</b></div>
-                        <div><span className={creativity > 65 ? "check-led warn" : "check-led pass"} /><p><strong>답변 일관성</strong><small>{creativity > 65 ? "표현 변화가 커질 수 있어요" : "질문이 달라도 같은 기준을 유지함"}</small></p><b>{creativity > 65 ? "WATCH" : "PASS"}</b></div>
                       </div>
 
                       <div className="test-history">
@@ -569,6 +883,7 @@ export default function Home() {
                           <div><span>✓</span><p><strong>주의사항과 금지 예시</strong><small>잘못 쓰기 쉬운 상황 안내</small></p></div>
                           <div><span>✓</span><p><strong>버전과 변경 이력</strong><small>언제 무엇이 달라졌는지 기록</small></p></div>
                           <div><span>✓</span><p><strong>운영·문의 안내</strong><small>담당자와 업데이트 방법</small></p></div>
+                          <div><span>✓</span><p><strong>모델·튜닝 레시피</strong><small>{selectedModel.name}과 조정값을 다시 쓸 수 있게 보관</small></p></div>
                         </div>
                       </div>
 
@@ -586,9 +901,12 @@ export default function Home() {
                   <dl className="context-list">
                     <div><dt>예시 데이터</dt><dd>{exampleCount}개</dd></div>
                     <div><dt>품질 상태</dt><dd className="positive">좋음</dd></div>
+                    <div><dt>선택 모델</dt><dd>{selectedModel.name}</dd></div>
+                    <div><dt>적용 방식</dt><dd>{selectedModel.method}</dd></div>
                     <div><dt>튜닝 유형</dt><dd>{policy >= 75 ? "규칙 준수형" : "균형형"}</dd></div>
                     <div><dt>현재 버전</dt><dd>v1</dd></div>
                     <div><dt>검증 점수</dt><dd>{stage >= 2 ? `${verification.overall} / 100` : "대기 중"}</dd></div>
+                    <div><dt>저장 레시피</dt><dd>{savedRecipes.length}개</dd></div>
                   </dl>
                   <div className="context-divider" />
                   <div className="stage-explanation"><span>지금 하는 일</span><strong>{stages[stage].label}</strong><p>{stages[stage].helper}. 완료하면 다음 단계로 이어집니다.</p></div>
