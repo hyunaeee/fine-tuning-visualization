@@ -61,6 +61,48 @@ const goals: Array<{
   },
 ];
 
+const outcomeExamples: Record<GoalId, {
+  inputAssets: string[];
+  before: string;
+  outputs: string[];
+  workflowResult: string;
+  metrics: Array<{ label: string; before: string; after: string }>;
+}> = {
+  support: {
+    inputAssets: ["교환·환불 정책 PDF", "상담 질문·답변 84개", "피해야 할 표현 12개"],
+    before: "교환이 가능할 수 있습니다. 자세한 내용은 고객센터에 문의해주세요.",
+    outputs: ["정책형 고객 응대 레시피", "질문별 테스트 결과", "상담팀용 체험 링크"],
+    workflowResult: "상담원이 처음부터 쓰지 않고, 검증된 답변 초안을 확인한 뒤 바로 전송합니다.",
+    metrics: [
+      { label: "정책 일치", before: "64", after: "96" },
+      { label: "말투 일치", before: "58", after: "93" },
+      { label: "답변 준비", before: "약 4분", after: "약 8초" },
+    ],
+  },
+  brand: {
+    inputAssets: ["브랜드 말투 가이드", "기존 카피 120개", "금지 표현 목록"],
+    before: "새로운 텀블러가 출시되었습니다. 지금 바로 만나보세요!",
+    outputs: ["브랜드 보이스 레시피", "문구 전후 비교표", "마케팅팀용 작성 화면"],
+    workflowResult: "누가 작성해도 같은 브랜드 목소리를 유지하고, 검토가 필요한 초안만 골라냅니다.",
+    metrics: [
+      { label: "문체 일치", before: "49", after: "95" },
+      { label: "평균 수정", before: "3회", after: "1회" },
+      { label: "초안 작성", before: "약 12분", after: "약 20초" },
+    ],
+  },
+  organize: {
+    inputAssets: ["회의록 샘플", "찾을 항목 정의", "정답 예시 60개"],
+    before: "김하나 님이 다음 주까지 초안을 공유하기로 했고 검토 일정은 추후 정합니다.",
+    outputs: ["문서 추출 레시피", "누락·오류 검증표", "CSV·API 결과"],
+    workflowResult: "긴 문서를 넣으면 담당자·기한·할 일이 같은 형식으로 정리되어 후속 업무에 연결됩니다.",
+    metrics: [
+      { label: "항목 정확도", before: "71", after: "97" },
+      { label: "누락 항목", before: "4개", after: "0개" },
+      { label: "문서 정리", before: "약 15분", after: "약 30초" },
+    ],
+  },
+};
+
 const stages = [
   { label: "목표", helper: "맡길 일을 설명해요" },
   { label: "예시", helper: "좋은 답변을 보여줘요" },
@@ -278,6 +320,7 @@ export default function Home() {
     () => goals.find((item) => item.id === goal) ?? goals[0],
     [goal],
   );
+  const selectedOutcome = outcomeExamples[goal];
 
   const selectedModel = useMemo(
     () => modelCatalog.find((item) => item.id === selectedModelId) ?? modelCatalog[1],
@@ -391,7 +434,7 @@ export default function Home() {
 
   async function copyLink() {
     try {
-      await navigator.clipboard.writeText("https://modely.ai/demo/customer-support-v1");
+      await navigator.clipboard.writeText(`${window.location.origin}/?demo=customer-support-v1`);
     } catch {
       // The UI still confirms what would be included in this product prototype.
     }
@@ -537,6 +580,81 @@ export default function Home() {
                   </button>
                 ))}
               </div>
+
+              <section className="io-showcase" aria-labelledby="io-showcase-title">
+                <div className="showcase-heading">
+                  <div><span>INPUT → OUTPUT</span><h2 id="io-showcase-title">무엇을 넣고, 무엇을 받나요?</h2></div>
+                  <small>선택한 목적에 따라 아래 예시가 바뀝니다</small>
+                </div>
+
+                <div className="io-pipeline">
+                  <article className="io-card input-card">
+                    <div className="io-card-head"><span>01 / INPUT</span><strong>내 업무를 설명하는 재료</strong></div>
+                    <div className="input-prompt-sample">
+                      <span>하고 싶은 일</span>
+                      <p>{selectedGoal.prompt}</p>
+                    </div>
+                    <ul>
+                      {selectedOutcome.inputAssets.map((asset) => <li key={asset}><span>＋</span>{asset}</li>)}
+                    </ul>
+                  </article>
+
+                  <div className="pipeline-engine" aria-label="모델리가 입력을 처리해 출력으로 변환">
+                    <span>✳</span><strong>MODELY</strong><small>모델 선택 · 레시피 조정 · 검증</small><i>→</i>
+                  </div>
+
+                  <article className="io-card output-card">
+                    <div className="io-card-head"><span>02 / OUTPUT</span><strong>바로 사용할 수 있는 결과물</strong></div>
+                    <div className="output-answer-sample">
+                      <span>검증된 AI 답변</span>
+                      <p>{selectedGoal.answer}</p>
+                      <small><i /> 규칙·말투·형식 검사 통과</small>
+                    </div>
+                    <ul>
+                      {selectedOutcome.outputs.map((output) => <li key={output}><span>✓</span>{output}</li>)}
+                    </ul>
+                  </article>
+                </div>
+              </section>
+
+              <section className="outcome-showcase" aria-labelledby="outcome-showcase-title">
+                <div className="showcase-heading">
+                  <div><span>BEFORE → AFTER</span><h2 id="outcome-showcase-title">실제 사용하면 이렇게 달라집니다</h2></div>
+                  <small>제품 데모 기준 예상 결과 · 실제 수치는 데이터에 따라 달라져요</small>
+                </div>
+
+                <div className="outcome-tabs" role="tablist" aria-label="사용 결과 예시 선택">
+                  {goals.map((item) => (
+                    <button key={item.id} type="button" role="tab" aria-selected={goal === item.id} className={goal === item.id ? "selected" : ""} onClick={() => chooseGoal(item.id)}>
+                      <span>{item.id === "support" ? "CS" : item.id === "brand" ? "BR" : "DOC"}</span>
+                      <div><strong>{item.title}</strong><small>{item.description}</small></div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="result-comparison">
+                  <article className="result-before">
+                    <header><span>BEFORE</span><small>기본 AI 답변</small></header>
+                    <p>{selectedOutcome.before}</p>
+                    <footer><i>!</i> 회사 기준과 결과 형식이 매번 달라질 수 있어요</footer>
+                  </article>
+                  <article className="result-after">
+                    <header><span>AFTER</span><small>레시피 적용 답변</small></header>
+                    <p>{selectedGoal.answer}</p>
+                    <footer><i>✓</i> 원하는 규칙·말투·형식을 반복해서 유지해요</footer>
+                  </article>
+                </div>
+
+                <div className="usage-result">
+                  <div className="usage-copy"><span>사용 결과</span><strong>{selectedOutcome.workflowResult}</strong></div>
+                  <div className="result-metrics">
+                    {selectedOutcome.metrics.map((metric) => (
+                      <div key={metric.label}><span>{metric.label}</span><p><del>{metric.before}</del><i>→</i><strong>{metric.after}</strong></p></div>
+                    ))}
+                  </div>
+                  <button type="button" onClick={() => setStage(1)}>이 예시로 시작하기 <span>→</span></button>
+                </div>
+              </section>
 
               <div className="start-explainer">
                 <div className="explainer-title"><span>이후에는 이렇게 진행돼요</span><small>각 단계마다 모델리가 설명합니다</small></div>
@@ -869,7 +987,7 @@ export default function Home() {
                         <div className="delivery-card-top"><span className="delivery-icon">↗</span><span className="delivery-badge">{audiences[audience].badge}</span></div>
                         <h3>{audiences[audience].headline}</h3>
                         <p>{audiences[audience].detail}</p>
-                        {audience === "operator" && <div className="link-preview"><span>modely.ai/demo/</span><strong>customer-support-v1</strong><button type="button" onClick={copyLink}>{copied ? "복사됨 ✓" : "복사"}</button></div>}
+                        {audience === "operator" && <div className="link-preview"><span>fine-tuning-visualization.vercel.app/</span><strong>?demo=customer-support-v1</strong><button type="button" onClick={copyLink}>{copied ? "복사됨 ✓" : "복사"}</button></div>}
                         {audience === "web" && <div className="code-preview"><span>&lt;script</span> src=&quot;modely.ai/widget.js&quot; data-model=&quot;cs-v1&quot;<span>&gt;&lt;/script&gt;</span></div>}
                         {audience === "developer" && <div className="code-preview"><span>POST</span> https://api.modely.ai/v1/respond <i>model: cs-v1</i></div>}
                         {audience === "agency" && <div className="handoff-preview"><span>ZIP</span><div><strong>고객사명_AI_인계패키지</strong><small>체험 링크 · 보고서 · 운영 문서 · 변경 이력</small></div></div>}
@@ -880,6 +998,8 @@ export default function Home() {
                         <div className="package-list">
                           <div><span>✓</span><p><strong>AI 사용 방법</strong><small>할 수 있는 일과 질문 예시</small></p></div>
                           <div><span>✓</span><p><strong>성능 검증 보고서</strong><small>정확성·말투·안전성 점수</small></p></div>
+                          <div><span>✓</span><p><strong>입력·출력 명세</strong><small>넣을 자료와 받게 되는 결과 형식</small></p></div>
+                          <div><span>✓</span><p><strong>실제 사용 예시</strong><small>대표 질문과 적용 전·후 답변</small></p></div>
                           <div><span>✓</span><p><strong>주의사항과 금지 예시</strong><small>잘못 쓰기 쉬운 상황 안내</small></p></div>
                           <div><span>✓</span><p><strong>버전과 변경 이력</strong><small>언제 무엇이 달라졌는지 기록</small></p></div>
                           <div><span>✓</span><p><strong>운영·문의 안내</strong><small>담당자와 업데이트 방법</small></p></div>

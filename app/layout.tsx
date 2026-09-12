@@ -3,7 +3,7 @@ import "./globals.css";
 
 const title = "모델리 | 목적별 모델을 고르고 레시피로 저장하는 AI 튜닝 콘솔";
 const description =
-  "목적에 맞는 AI 모델을 추천받고, 다이얼로 규칙·말투·길이·표현을 조정해 재사용 가능한 레시피로 저장하고 즉시 검증하는 튜닝 워크스페이스입니다.";
+  "업무 자료를 입력하면 어떤 AI 답변과 전달 결과를 받는지 예시로 확인하고, 목적에 맞는 모델과 튜닝 레시피를 저장해 즉시 검증하는 워크스페이스입니다.";
 const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const siteUrl = productionHost
   ? `https://${productionHost}`
