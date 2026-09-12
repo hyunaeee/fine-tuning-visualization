@@ -1,100 +1,69 @@
-# vinext-starter
+# Modely · 모델리
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+비전문가가 AI 조정을 이해하고 체험할 수 있도록, 기계의 다이얼과 요리 레시피를 바탕으로 설계한 한국어 튜닝 워크스페이스입니다.
 
-## Prerequisites
+[라이브 데모](https://fine-tuning-visualization.vercel.app/) · [포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/archive.html#modely)
 
-- Node.js `>=22.13.0`
+## 무엇을 체험하나요?
 
-## Quick Start
+- 고객 응대, 브랜드 문체, 문서 정리 중 목적 선택
+- 필요한 입력 자료와 예상 출력, 사용 전후 답변 예시 비교
+- 목적에 따라 정렬되는 모델 카탈로그
+- 규칙 준수, 친절함, 간결함, 표현 다양성 다이얼 조정
+- 조작에 반응하는 예시 답변과 성향·점수 표시
+- 모델·목적·다이얼 설정을 레시피로 저장하고 다시 불러오기
+- 운영자, 웹사이트, 개발자, 대행사별 결과 전달 화면 미리보기
 
-```bash
-npm install
+## 입력과 출력 예시
+
+| 목적 | 입력 예시 | 출력 예시 |
+| --- | --- | --- |
+| 고객 응대 | 교환·환불 정책, 상담 질문·답변 | 정책과 말투를 반영한 상담 초안 |
+| 브랜드 문체 | 브랜드 가이드, 기존 카피 | 브랜드 문체에 맞춘 상품 소개 초안 |
+| 문서 정리 | 회의록, 추출할 항목 정의 | 담당자·기한·할 일 형태의 정리 |
+
+각 흐름은 미리 구성한 예시로 체험합니다.
+
+## 현재 구현 범위
+
+현재 공개판은 **프런트엔드 제품 데모**입니다.
+
+- 예시 답변은 React 상태와 규칙 기반 템플릿으로 변경됩니다.
+- 검증 점수, 모델 적합도와 전후 수치는 시연용이며 실제 모델 평가 결과가 아닙니다.
+- 모델 API 호출이나 파인튜닝 학습 작업을 실행하지 않습니다.
+- 파일 선택은 파일명만 표시하며 파일 내용을 읽거나 서버에 업로드하지 않습니다.
+- 레시피는 같은 브라우저의 `localStorage`에 보관합니다. 계정 간 동기화는 없습니다.
+- 전달 패키지·웹 위젯·API·고객별 링크는 전달 방식의 UI 예시입니다. 실제 고객 서비스나 학습된 모델을 발급하지 않습니다.
+- 카탈로그는 코드에 정의한 데이터이며 공급사의 실제 지원 여부를 자동 조회하지 않습니다.
+
+실제 서비스로 확장하려면 서버 측 모델 공급사 연결, 데이터 처리, 학습 작업 관리, 독립된 평가셋, 계정별 저장소와 고객용 배포가 필요합니다.
+
+## 로컬 실행
+
+Node.js 22.13 이상이 필요합니다.
+
+```sh
+npm ci
 npm run dev
+```
+
+개발 서버는 기본적으로 http://localhost:3000 에서 실행됩니다.
+
+```sh
+npm run lint
+npm test
 npm run build
+npm start
 ```
 
-This starter does not use `wrangler.jsonc`.
+`npm test`는 프로덕션 빌드 후 초기 HTML과 주요 화면 구성을 검사합니다.
 
-## Included Shape
+## 코드 구성
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+- `app/page.tsx`: 업무 예시, 모델 목록, 다이얼, 레시피와 전달 흐름
+- `app/globals.css`: 반응형 워크스페이스와 기계형 콘솔 스타일
+- `app/layout.tsx`: 한국어 페이지 메타데이터
+- `tests/rendered-html.test.mjs`: 렌더링 검사
+- `vercel.json`: Vercel 배포 설정
 
-## Workspace Auth Headers
-
-Signed-in visitors receive both `oai-authenticated-user-id` and `oai-authenticated-user-email`. Private Sites require every visitor to sign in; public Sites may also have anonymous visitors, for whom neither header is present.
-
-The user ID is stable for the same user on the same Site and different across Sites. Email and name are intended for display or contact purposes.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const userId = requestHeaders.get("oai-authenticated-user-id");
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
-```
-
-## Optional Dispatch-Owned ChatGPT Sign-In
-
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
-
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
-
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
-
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
-
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+Next.js, React, TypeScript로 구현하고 Vercel에 배포했습니다. API 키 없이 데모를 실행할 수 있습니다. 환경 파일과 Vercel의 로컬 연결 정보는 Git에서 제외합니다.
