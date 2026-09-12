@@ -1,0 +1,330 @@
+@media (max-width: 980px) {
+  .app-frame {
+    grid-template-columns: 210px minmax(0, 1fr);
+  }
+  .project-layout {
+    grid-template-columns: 1fr;
+  }
+  .context-panel {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .context-title {
+    grid-column: 1 / 3;
+  }
+  .context-divider {
+    display: none;
+  }
+  .stage-explanation {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .handoff-rule {
+    grid-column: 1 / 3;
+  }
+  .stage-rail small {
+    display: none;
+  }
+  .stage-rail button {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-frame {
+    display: block;
+  }
+  .sidebar {
+    display: none;
+  }
+  .workspace-header {
+    height: 54px;
+    padding: 0 14px;
+  }
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .breadcrumbs {
+    display: none;
+  }
+  .demo-label {
+    display: none;
+  }
+  .start-view {
+    width: min(100% - 28px, 620px);
+    padding: 60px 0 50px;
+  }
+  .start-view h1 {
+    font-size: clamp(34px, 10vw, 48px);
+  }
+  .suggestion-row {
+    flex-wrap: wrap;
+  }
+  .io-showcase,
+  .outcome-showcase {
+    margin-top: 54px;
+  }
+  .showcase-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .showcase-heading > small {
+    max-width: none;
+    text-align: left;
+  }
+  .io-pipeline {
+    grid-template-columns: 1fr;
+  }
+  .pipeline-engine {
+    min-height: 104px;
+    border: 0;
+    border-top: 1px solid #c6c6c0;
+    border-bottom: 1px solid #c6c6c0;
+  }
+  .pipeline-engine i {
+    right: 50%;
+    top: auto;
+    bottom: -11px;
+    transform: translateX(50%) rotate(90deg);
+  }
+  .outcome-tabs {
+    grid-template-columns: 1fr;
+  }
+  .outcome-tabs button {
+    min-height: 58px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .outcome-tabs button:last-child {
+    border-bottom: 0;
+  }
+  .result-comparison {
+    grid-template-columns: 1fr;
+  }
+  .result-comparison article:first-child {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .result-comparison article {
+    min-height: 150px;
+  }
+  .usage-result {
+    grid-template-columns: 1fr;
+  }
+  .usage-result > button {
+    justify-self: start;
+  }
+  .start-explainer {
+    margin-top: 50px;
+  }
+  .explainer-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .explainer-grid {
+    grid-template-columns: 1fr;
+  }
+  .explainer-grid article {
+    min-height: 112px;
+  }
+  .project-view {
+    width: min(100% - 24px, 680px);
+    padding: 26px 0 60px;
+  }
+  .project-titlebar {
+    align-items: flex-start;
+  }
+  .project-meta {
+    display: none;
+  }
+  .stage-rail {
+    grid-template-columns: repeat(5, minmax(54px, 1fr));
+    overflow-x: auto;
+  }
+  .stage-rail button {
+    height: 55px;
+    padding: 0 6px;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .stage-rail button > span {
+    width: 18px;
+    height: 18px;
+  }
+  .stage-rail strong {
+    font-size: 8px;
+  }
+  .panel-content {
+    padding: 17px;
+  }
+  .panel-heading {
+    align-items: flex-start;
+  }
+  .panel-heading h2 {
+    font-size: 18px;
+  }
+  .platform-update {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .platform-update a {
+    justify-self: start;
+  }
+  .model-grid {
+    grid-template-columns: 1fr;
+  }
+  .active-recipe-strip {
+    grid-template-columns: 10px minmax(0, 1fr) auto;
+  }
+  .active-recipe-strip > span:nth-last-of-type(1) {
+    display: none;
+  }
+  .recipe-book-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .recipe-formula {
+    grid-template-columns: 1fr;
+  }
+  .recipe-formula > i {
+    display: none;
+  }
+  .recipe-cards {
+    grid-template-columns: 1fr;
+  }
+  .upload-card {
+    grid-template-columns: 35px 1fr;
+  }
+  .upload-action {
+    display: none;
+  }
+  .data-status {
+    grid-template-columns: 1fr;
+  }
+  .data-status > div {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .data-status > div:last-child {
+    border-bottom: 0;
+  }
+  .conversation-pair,
+  .compare-grid,
+  .effort-options,
+  .metric-grid,
+  .audience-tabs,
+  .package-list {
+    grid-template-columns: 1fr;
+  }
+  .dial-bank {
+    grid-template-columns: 1fr 1fr;
+  }
+  .machine-lower {
+    grid-template-columns: 1fr;
+  }
+  .learning-modules {
+    border-right: 0;
+    border-bottom: 1px solid #b9b9b2;
+  }
+  .bench-controls,
+  .live-output-grid,
+  .verification-grid {
+    grid-template-columns: 1fr;
+  }
+  .verification-grid > div {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .verification-grid > div:last-child {
+    border-bottom: 0;
+  }
+  .preview-terminal-body {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .fine-tune-explainer {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .history-table {
+    grid-template-columns: 44px minmax(0, 1fr) 32px;
+  }
+  .history-table i {
+    display: none;
+  }
+  .conversation-pair > div:first-child {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .effort-options button {
+    min-height: 88px;
+  }
+  .metric-grid > div {
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .metric-grid > div:last-child {
+    border-bottom: 0;
+  }
+  .audience-tabs button {
+    min-height: 54px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .audience-tabs button:last-child {
+    border-bottom: 0;
+  }
+  .package-list > div,
+  .package-list > div:nth-child(odd),
+  .package-list > div:nth-last-child(-n + 2) {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .package-list > div:last-child {
+    border-bottom: 0;
+  }
+  .training-run {
+    grid-template-columns: 1fr;
+  }
+  .run-progress {
+    grid-column: 1;
+  }
+  .training-run > button {
+    justify-self: start;
+  }
+  .panel-footer {
+    gap: 10px;
+  }
+  .primary-action {
+    text-align: left;
+  }
+  .context-panel {
+    display: block;
+  }
+  .context-title {
+    margin-bottom: 16px;
+  }
+  .context-divider {
+    display: block;
+  }
+  .stage-explanation {
+    margin-top: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

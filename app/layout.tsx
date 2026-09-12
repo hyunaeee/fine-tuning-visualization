@@ -7,7 +7,7 @@ const description =
 const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const siteUrl = productionHost
   ? `https://${productionHost}`
-  : "https://modely-finetune-kr.vercel.app";
+  : "https://fine-tuning-visualization.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -17,7 +17,14 @@ export const metadata: Metadata = {
     title,
     description,
     type: "website",
-    images: [{ url: "/og-recipe.png", width: 1200, height: 630, alt: "모델리 모델 랙과 튜닝 레시피 북" }],
+    images: [
+      {
+        url: "/og-recipe.png",
+        width: 1200,
+        height: 630,
+        alt: "모델리 모델 랙과 튜닝 레시피 북",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

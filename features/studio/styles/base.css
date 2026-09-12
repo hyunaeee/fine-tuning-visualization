@@ -1,0 +1,61 @@
+:root {
+  --black: #111110;
+  --ink: #262625;
+  --muted: #6d6d69;
+  --faint: #999992;
+  --line: #dfdfda;
+  --line-strong: #c9c9c3;
+  --canvas: #ffffff;
+  --sidebar: #f5f5f2;
+  --soft: #f7f7f5;
+  --soft-2: #eeeeea;
+  --orange: #f05a2a;
+  --orange-soft: #fff0e9;
+  --green: #27845a;
+  --green-soft: #e9f5ee;
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+body {
+  font-family:
+    "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  color: inherit;
+  font: inherit;
+}
+
+button,
+label,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+button {
+  cursor: pointer;
+}
