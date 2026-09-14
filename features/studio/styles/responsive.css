@@ -75,7 +75,7 @@
     padding: 36px 0 50px;
   }
   .start-view h1 {
-    font-size: clamp(34px, 10vw, 48px);
+    font-size: clamp(28px, 8vw, 34px);
   }
   .suggestion-row {
     flex-wrap: wrap;
@@ -462,7 +462,7 @@
     gap: 11px;
   }
   .project-titlebar h1 {
-    font-size: 26px;
+    font-size: 24px;
   }
   .preview-terminal-body {
     padding: 18px;
@@ -473,7 +473,7 @@
     padding: 12px;
   }
   .showcase-heading h2 {
-    font-size: 23px;
+    font-size: 21px;
   }
 }
 

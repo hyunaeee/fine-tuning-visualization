@@ -55,7 +55,7 @@
 .panel-heading span,
 .context-title {
   margin: 0;
-  color: #8c8c86;
+  color: #4b5b71;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 12px;
   font-weight: 600;
@@ -73,7 +73,7 @@
 
 .start-view .lead {
   margin: 18px 0 0;
-  color: #70706a;
+  color: #4b5b71;
   font-size: 14px;
   line-height: 1.7;
   letter-spacing: -0.015em;
@@ -113,7 +113,7 @@
 }
 
 .prompt-box textarea::placeholder {
-  color: #aaa9a3;
+  color: #4b5b71;
 }
 
 .prompt-footer {
@@ -137,12 +137,12 @@
   border: 1px solid var(--line);
   border-radius: 6px;
   background: white;
-  color: #74746e;
+  color: #4b5b71;
   font-size: 16px;
 }
 
 .prompt-footer span {
-  color: #989892;
+  color: #4b5b71;
   font-size: 12px;
 }
 
@@ -176,7 +176,7 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   background: white;
-  color: #70706a;
+  color: #4b5b71;
   font-size: 12px;
 }
 
@@ -218,7 +218,7 @@
 
 .showcase-heading > small {
   max-width: 310px;
-  color: #92928c;
+  color: #4b5b71;
   font-size: 12px;
   line-height: 1.5;
   text-align: right;
@@ -249,7 +249,7 @@
 }
 
 .io-card-head > span {
-  color: #91918b;
+  color: #4b5b71;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 12px;
   font-weight: 700;
@@ -275,7 +275,7 @@
 
 .input-prompt-sample > span,
 .output-answer-sample > span {
-  color: #969690;
+  color: #4b5b71;
   font-size: 12px;
   font-weight: 650;
 }
@@ -323,7 +323,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  color: #6f6f69;
+  color: #4b5b71;
   font-size: 12px;
 }
 
@@ -336,7 +336,7 @@
   border: 1px solid #d4d4ce;
   border-radius: 4px;
   background: #fafaf8;
-  color: #888882;
+  color: #4b5b71;
   font-size: 12px;
 }
 
@@ -379,7 +379,7 @@
 }
 .pipeline-engine small {
   margin-top: 5px;
-  color: #777771;
+  color: #4b5b71;
   font-size: 12px;
   line-height: 1.45;
 }
@@ -438,7 +438,7 @@
   border: 1px solid #d2d2cc;
   border-radius: 5px;
   background: white;
-  color: #75756f;
+  color: #4b5b71;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 12px;
   font-weight: 700;
@@ -463,13 +463,13 @@
 }
 .outcome-tabs small {
   overflow: hidden;
-  color: #93938d;
+  color: #4b5b71;
   font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .outcome-tabs button.selected small {
-  color: #aeada7;
+  color: #4b5b71;
 }
 
 .result-comparison {
@@ -511,7 +511,7 @@
   color: var(--green);
 }
 .result-comparison header small {
-  color: #999993;
+  color: #4b5b71;
   font-size: 12px;
 }
 .result-comparison article > p {
@@ -531,7 +531,7 @@
   align-items: center;
   gap: 7px;
   border-top: 1px solid var(--line);
-  color: #8b8b85;
+  color: #4b5b71;
   font-size: 12px;
 }
 .result-comparison footer i {
@@ -569,7 +569,7 @@
   gap: 6px;
 }
 .usage-copy span {
-  color: #7c7c76;
+  color: #4b5b71;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 12px;
   font-weight: 700;
@@ -598,7 +598,7 @@
   border-right: 0;
 }
 .result-metrics span {
-  color: #85857f;
+  color: #4b5b71;
   font-size: 12px;
 }
 .result-metrics p {
@@ -609,12 +609,12 @@
   white-space: nowrap;
 }
 .result-metrics del {
-  color: #aaa9a3;
+  color: #4b5b71;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 12px;
 }
 .result-metrics i {
-  color: #a2a29c;
+  color: #4b5b71;
   font-size: 12px;
   font-style: normal;
 }
@@ -639,7 +639,7 @@
   white-space: nowrap;
 }
 .usage-result > button span {
-  color: #bdbdb7;
+  color: #4b5b71;
 }
 
 .start-explainer {
@@ -660,7 +660,7 @@
   font-weight: 600;
 }
 .explainer-title small {
-  color: #969690;
+  color: #4b5b71;
   font-size: 12px;
 }
 
@@ -695,7 +695,7 @@
 
 .explainer-grid p {
   margin: 8px 0 0;
-  color: #7e7e78;
+  color: #4b5b71;
   font-size: 12px;
   line-height: 1.55;
 }

@@ -1,19 +1,19 @@
 :root {
-  --black: #292039;
-  --ink: #3f3552;
-  --muted: #756985;
-  --faint: #8a7c9b;
-  --line: #e6dff0;
-  --line-strong: #d1c4e1;
-  --canvas: #faf8fd;
-  --sidebar: #f4effa;
-  --soft: #f8f5fc;
-  --soft-2: #eee7f6;
-  --accent: #7c3aed;
-  --accent-soft: #f1e9ff;
-  --accent-dark: #5927aa;
-  --accent-glow: #c7a5ff;
-  --surface-shadow: 0 4px 0 #e8dff2, 0 16px 34px -16px #5c357b26;
+  --black: #1d2b40;
+  --ink: #2c3e55;
+  --muted: #53657b;
+  --faint: #62748a;
+  --line: #dfe6f0;
+  --line-strong: #c4d0e1;
+  --canvas: #f8fafd;
+  --sidebar: #eff3fa;
+  --soft: #f5f8fc;
+  --soft-2: #e7edf6;
+  --accent: #2563eb;
+  --accent-soft: #e9f2ff;
+  --accent-dark: #1e4f9f;
+  --accent-glow: #a5c9ff;
+  --surface-shadow: 0 4px 0 #dfe7f2, 0 16px 34px -16px #35517b26;
   --green: #27845a;
   --green-soft: #e9f5ee;
   --radius: 16px;
@@ -25,6 +25,8 @@
 
 html,
 body {
+  font-size: 14px;
+  line-height: 1.6;
   margin: 0;
   min-height: 100%;
   background: var(--canvas);
