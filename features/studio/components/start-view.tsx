@@ -1,5 +1,6 @@
 import type { StudioController } from "../hooks/use-studio";
 import { goals } from "../data/catalog";
+import { WelcomeMachine } from "./welcome-machine";
 type Props = Pick<
   StudioController,
   | "prompt"
@@ -9,6 +10,9 @@ type Props = Pick<
   | "chooseGoal"
   | "selectedGoal"
   | "selectedOutcome"
+  | "controls"
+  | "liveAnswer"
+  | "verifying"
 >;
 export function StartView({
   prompt,
@@ -18,70 +22,138 @@ export function StartView({
   chooseGoal,
   selectedGoal,
   selectedOutcome,
+  controls,
+  liveAnswer,
+  verifying,
 }: Props) {
   return (
     <section className="start-view">
-      <div className="codex-orb" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-      </div>
-      <p className="overline">FINE-TUNING WORKSPACE</p>
-      <h1>어떤 일을 맡길 AI가 필요한가요?</h1>
-      <p className="lead">
-        파인튜닝이나 모델을 몰라도 괜찮아요.
-        <br />
-        평소 동료에게 설명하듯 원하는 결과를 적어주세요.
-      </p>
+      <div className="welcome-hero">
+        <div className="welcome-copy">
+          <p className="welcome-eyebrow">
+            <span>✦</span> 누구나 만드는 나만의 AI
+          </p>
+          <h1>
+            내 일에 딱 맞는 AI,
+            <br />
+            <em>내 손으로 가볍게.</em>
+          </h1>
+          <p className="lead">
+            어려운 코드는 모델리에게 맡기세요.
+            <br />할 일을 고르고, 말투를 맞추고, 답변을 확인하면 돼요.
+          </p>
 
-      <form
-        className="prompt-box"
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (prompt.trim()) setStage(1);
-        }}
-      >
-        <textarea
-          value={prompt}
-          maxLength={2000}
-          onChange={(event) => setPrompt(event.target.value)}
-          aria-label="만들고 싶은 AI 설명"
-          placeholder="예: 우리 쇼핑몰 정책에 맞춰 고객 문의에 답하는 AI를 만들고 싶어요."
-        />
-        <div className="prompt-footer">
-          <div>
-            <button
-              type="button"
-              aria-label="파일 선택 단계로 이동"
-              onClick={() => setStage(1)}
-            >
-              ＋
-            </button>
-            <span>한국어로 편하게 설명하세요</span>
-          </div>
-          <button className="send-button" type="submit" aria-label="설명 제출">
-            ↑
-          </button>
-        </div>
-      </form>
-
-      <div className="suggestion-row" aria-label="빠른 시작 예시">
-        {goals.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => chooseGoal(item.id)}
-            className={goal === item.id ? "active" : ""}
+          <div
+            className="suggestion-row"
+            role="group"
+            aria-label="빠른 시작 예시"
           >
-            {item.title}
-          </button>
+            {goals.map((item, index) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => chooseGoal(item.id)}
+                aria-pressed={goal === item.id}
+                className={goal === item.id ? "active" : ""}
+              >
+                <span
+                  className={"goal-token goal-token-" + item.id}
+                  aria-hidden="true"
+                >
+                  {["☏", "✎", "▤"][index]}
+                </span>
+                <span>
+                  <strong>
+                    {
+                      ["고객 문의 답변", "우리 브랜드 글쓰기", "긴 문서 정리"][
+                        index
+                      ]
+                    }
+                  </strong>
+                  <small>
+                    {
+                      [
+                        "친절하고 일관된 응대",
+                        "우리다운 말투와 표현",
+                        "핵심만 쏙, 빠짐없이",
+                      ][index]
+                    }
+                  </small>
+                </span>
+                <i aria-hidden="true">{goal === item.id ? "✓" : ""}</i>
+              </button>
+            ))}
+          </div>
+
+          <form
+            className="prompt-box"
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (prompt.trim()) setStage(1);
+            }}
+          >
+            <label htmlFor="project-prompt">어떤 일을 맡기고 싶나요?</label>
+            <textarea
+              id="project-prompt"
+              value={prompt}
+              maxLength={2000}
+              onChange={(event) => setPrompt(event.target.value)}
+              aria-label="만들고 싶은 AI 설명"
+              placeholder="예: 우리 쇼핑몰 정책에 맞춰 고객 문의에 답하는 AI를 만들고 싶어요."
+            />
+            <div className="prompt-footer">
+              <div>
+                <button
+                  type="button"
+                  aria-label="파일 선택 단계로 이동"
+                  onClick={() => setStage(1)}
+                >
+                  ＋
+                </button>
+                <span>예시를 그대로 써도 좋아요</span>
+              </div>
+              <button
+                className="send-button"
+                type="submit"
+                disabled={!prompt.trim()}
+              >
+                내 AI 만들기 <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+          <p className="welcome-reassurance">
+            ✓ 설치 없이 체험 <span>✓ 준비된 예시 제공</span> ✓ 언제든 다시 조절
+          </p>
+        </div>
+        <WelcomeMachine
+          controls={controls}
+          liveAnswer={liveAnswer}
+          verifying={verifying}
+          selectedGoal={selectedGoal}
+        />
+      </div>
+
+      <div className="welcome-path" aria-label="간단한 사용 순서">
+        {[
+          ["1", "할 일을 골라요", "어떤 도움이 필요한가요?"],
+          ["2", "내 취향으로 조절해요", "말투와 답변 길이를 맞춰요"],
+          ["3", "확인하고 보관해요", "마음에 들면 레시피로 저장"],
+        ].map(([number, title, text]) => (
+          <div key={number}>
+            <span>{number}</span>
+            <div>
+              <strong>{title}</strong>
+              <small>{text}</small>
+            </div>
+            <i aria-hidden="true">→</i>
+          </div>
         ))}
       </div>
 
       <section className="io-showcase" aria-labelledby="io-showcase-title">
         <div className="showcase-heading">
           <div>
-            <span>INPUT → OUTPUT</span>
+            <span>준비부터 결과까지</span>
             <h2 id="io-showcase-title">무엇을 넣고, 무엇을 받나요?</h2>
           </div>
           <small>선택한 목적에 따라 아래 예시가 바뀝니다</small>
@@ -90,7 +162,7 @@ export function StartView({
         <div className="io-pipeline">
           <article className="io-card input-card">
             <div className="io-card-head">
-              <span>01 / INPUT</span>
+              <span>01 / 준비할 것</span>
               <strong>내 업무를 설명하는 재료</strong>
             </div>
             <div className="input-prompt-sample">
@@ -113,13 +185,13 @@ export function StartView({
           >
             <span>✳</span>
             <strong>MODELY</strong>
-            <small>모델 선택 · 레시피 조정 · 검증</small>
+            <small>고르고 · 맞추고 · 확인하고</small>
             <i>→</i>
           </div>
 
           <article className="io-card output-card">
             <div className="io-card-head">
-              <span>02 / OUTPUT</span>
+              <span>02 / 받을 것</span>
               <strong>바로 사용할 수 있는 결과물</strong>
             </div>
             <div className="output-answer-sample">
@@ -147,8 +219,8 @@ export function StartView({
       >
         <div className="showcase-heading">
           <div>
-            <span>BEFORE → AFTER</span>
-            <h2 id="outcome-showcase-title">실제 사용하면 이렇게 달라집니다</h2>
+            <span>사용 모습 미리보기</span>
+            <h2 id="outcome-showcase-title">내가 원하는 답변에 더 가까이</h2>
           </div>
           <small>제품 데모의 가상 시나리오 · 실측 성과가 아닙니다</small>
         </div>

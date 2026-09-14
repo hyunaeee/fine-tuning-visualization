@@ -21,7 +21,7 @@ export function ExamplesStep({
       <div className="assistant-note">
         <span className="assistant-mark">✳</span>
         <div>
-          <strong>무엇을 준비하면 되나요?</strong>
+          <strong>자료가 없어도 괜찮아요. 예시를 준비해뒀어요.</strong>
           <p>
             질문과 그때 들려주고 싶은 좋은 답변을 한 쌍으로 모아주세요. 현재
             화면에서는 목적별 샘플로 조작 흐름을 체험합니다.
@@ -30,7 +30,7 @@ export function ExamplesStep({
       </div>
       <div className="panel-heading">
         <div>
-          <span>STEP 1 · EXAMPLES</span>
+          <span>AI에게 보여줄 예시</span>
           <h2>AI에게 좋은 답변을 보여주세요</h2>
         </div>
         <span className="plain-badge">샘플 데이터</span>
@@ -116,7 +116,7 @@ export function ExamplesStep({
           type="button"
           onClick={() => setStage(2)}
         >
-          튜닝 콘솔 열기 <span>→</span>
+          이 예시로 말투 조절하기 <span>→</span>
         </button>
       </div>
     </div>

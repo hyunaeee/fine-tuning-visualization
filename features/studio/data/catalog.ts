@@ -106,11 +106,11 @@ export const outcomeExamples: Record<
 };
 
 export const stages = [
-  { label: "목표", helper: "맡길 일을 설명해요" },
-  { label: "예시", helper: "좋은 답변을 보여줘요" },
-  { label: "모델·조정", helper: "모델과 레시피를 맞춰요" },
-  { label: "실시간 검증", helper: "바꾸는 즉시 확인해요" },
-  { label: "전달", helper: "고객에게 바로 넘겨요" },
+  { label: "할 일 선택", helper: "무엇을 도와드릴까요?" },
+  { label: "자료 보기", helper: "준비된 예시로 시작해요" },
+  { label: "말투 조절", helper: "내 취향으로 맞춰요" },
+  { label: "답변 확인", helper: "직접 물어보고 확인해요" },
+  { label: "저장·공유", helper: "같은 설정을 나눠요" },
 ];
 
 export const modelCatalog: Array<{

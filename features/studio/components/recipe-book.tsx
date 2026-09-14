@@ -46,7 +46,7 @@ export function RecipeBook({
     <section className="recipe-book" id="recipe-book">
       <div className="recipe-book-head">
         <div>
-          <span>RECIPE BOOK</span>
+          <span>나만의 레시피</span>
           <h3>잘 맞춘 조리법은 저장해두세요</h3>
           <p>
             모델, 목표 설명, 테스트 질문과 네 개의 다이얼 값을 저장하고 다시
@@ -64,19 +64,19 @@ export function RecipeBook({
 
       <div className="recipe-formula">
         <div>
-          <span>BASE</span>
+          <span>선택한 AI</span>
           <strong>{selectedModel.name}</strong>
           <small>{selectedModel.method}</small>
         </div>
         <i>＋</i>
         <div>
-          <span>INGREDIENTS</span>
+          <span>준비된 예시</span>
           <strong>{exampleCount}개 예시</strong>
           <small>{selectedGoal.title}</small>
         </div>
         <i>＋</i>
         <div>
-          <span>SEASONING</span>
+          <span>내 취향</span>
           <strong>
             {policy} · {warmth} · {concision} · {creativity}
           </strong>
@@ -84,7 +84,7 @@ export function RecipeBook({
         </div>
         <i>＝</i>
         <div className="formula-score">
-          <span>TASTE TEST</span>
+          <span>설정 성향</span>
           <strong>{verification.overall}점</strong>
           <small>다이얼 설정 지표</small>
         </div>

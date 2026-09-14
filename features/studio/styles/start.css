@@ -42,7 +42,7 @@
   width: 13px;
   height: 13px;
   border: 0;
-  background: var(--orange);
+  background: var(--accent);
 }
 .codex-orb i:nth-child(3) {
   width: 56px;
@@ -57,7 +57,7 @@
   margin: 0;
   color: #8c8c86;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.11em;
 }
@@ -143,7 +143,7 @@
 
 .prompt-footer span {
   color: #989892;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .send-button {
@@ -177,7 +177,7 @@
   border-radius: 999px;
   background: white;
   color: #70706a;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .suggestion-row button:hover,
@@ -201,9 +201,9 @@
 }
 
 .showcase-heading > div > span {
-  color: var(--orange);
+  color: var(--accent);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
 }
@@ -219,7 +219,7 @@
 .showcase-heading > small {
   max-width: 310px;
   color: #92928c;
-  font-size: 8px;
+  font-size: 12px;
   line-height: 1.5;
   text-align: right;
 }
@@ -251,13 +251,13 @@
 .io-card-head > span {
   color: #91918b;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
 
 .io-card-head > strong {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 650;
 }
 
@@ -276,7 +276,7 @@
 .input-prompt-sample > span,
 .output-answer-sample > span {
   color: #969690;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 650;
 }
 
@@ -284,7 +284,7 @@
 .output-answer-sample p {
   margin: 10px 0 0;
   color: #51514c;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.65;
 }
 
@@ -302,7 +302,7 @@
   align-items: center;
   gap: 5px;
   color: var(--green);
-  font-size: 7px;
+  font-size: 12px;
 }
 .output-answer-sample > small i {
   width: 6px;
@@ -324,7 +324,7 @@
   align-items: center;
   gap: 7px;
   color: #6f6f69;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .io-card li span {
@@ -337,7 +337,7 @@
   border-radius: 4px;
   background: #fafaf8;
   color: #888882;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .output-card li span {
@@ -366,7 +366,7 @@
   place-items: center;
   border-radius: 8px;
   background: var(--black);
-  color: var(--orange);
+  color: var(--accent);
   font-size: 17px;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12);
 }
@@ -374,13 +374,13 @@
 .pipeline-engine strong {
   margin-top: 10px;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.08em;
 }
 .pipeline-engine small {
   margin-top: 5px;
   color: #777771;
-  font-size: 6px;
+  font-size: 12px;
   line-height: 1.45;
 }
 .pipeline-engine i {
@@ -394,8 +394,8 @@
   border: 1px solid #b9b9b2;
   border-radius: 50%;
   background: white;
-  color: var(--orange);
-  font-size: 11px;
+  color: var(--accent);
+  font-size: 12px;
   font-style: normal;
   transform: translateY(-50%);
 }
@@ -440,7 +440,7 @@
   background: white;
   color: #75756f;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
 }
 .outcome-tabs button.selected > span {
@@ -456,7 +456,7 @@
 }
 .outcome-tabs strong {
   overflow: hidden;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 650;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -464,7 +464,7 @@
 .outcome-tabs small {
   overflow: hidden;
   color: #93938d;
-  font-size: 6px;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -500,7 +500,7 @@
 }
 .result-comparison header > span {
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -512,13 +512,13 @@
 }
 .result-comparison header small {
   color: #999993;
-  font-size: 7px;
+  font-size: 12px;
 }
 .result-comparison article > p {
   margin: 24px 0;
   flex: 1;
   color: #565650;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
 }
 .result-after > p {
@@ -532,7 +532,7 @@
   gap: 7px;
   border-top: 1px solid var(--line);
   color: #8b8b85;
-  font-size: 7px;
+  font-size: 12px;
 }
 .result-comparison footer i {
   flex: 0 0 auto;
@@ -571,13 +571,13 @@
 .usage-copy span {
   color: #7c7c76;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.07em;
 }
 .usage-copy strong {
   color: #4a4a45;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 550;
   line-height: 1.55;
 }
@@ -599,7 +599,7 @@
 }
 .result-metrics span {
   color: #85857f;
-  font-size: 6px;
+  font-size: 12px;
 }
 .result-metrics p {
   margin: 5px 0 0;
@@ -611,17 +611,17 @@
 .result-metrics del {
   color: #aaa9a3;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
 }
 .result-metrics i {
   color: #a2a29c;
-  font-size: 7px;
+  font-size: 12px;
   font-style: normal;
 }
 .result-metrics strong {
   color: var(--green);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 650;
 }
 .usage-result > button {
@@ -634,7 +634,7 @@
   border-radius: 6px;
   background: var(--black);
   color: white;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 650;
   white-space: nowrap;
 }
@@ -661,7 +661,7 @@
 }
 .explainer-title small {
   color: #969690;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .explainer-grid {
@@ -680,22 +680,22 @@
 }
 
 .explainer-grid article > span {
-  color: var(--orange);
+  color: var(--accent);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .explainer-grid strong {
   margin-top: 18px;
   display: block;
   color: var(--black);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .explainer-grid p {
   margin: 8px 0 0;
   color: #7e7e78;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.55;
 }

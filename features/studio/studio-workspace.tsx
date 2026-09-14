@@ -17,17 +17,29 @@ export function StudioWorkspace() {
       <Sidebar {...studio} />
       <section className="workspace">
         <header className="workspace-header">
-          <div className="mobile-brand">
+          <button
+            className="mobile-brand"
+            type="button"
+            onClick={() => setStage(0)}
+            aria-label="모델리 시작 화면"
+          >
             <span>✳</span> modely
-          </div>
+          </button>
           <div className="breadcrumbs">
-            <span>개인 워크스페이스</span>
+            <span>나의 AI 작업실</span>
             <i>/</i>
             <strong>{stage === 0 ? "새 AI" : selectedGoal.title}</strong>
           </div>
           <div className="header-actions">
+            <button
+              className="mobile-recipes"
+              type="button"
+              onClick={() => studio.openStudio("recipe-book")}
+            >
+              내 레시피
+            </button>
             <span className="demo-label">
-              <i /> 제품 데모
+              <i /> 예시로 체험 중
             </span>
             <button
               className="share-button"
@@ -54,13 +66,14 @@ export function StudioWorkspace() {
               <div className="project-titlebar">
                 <div>
                   <span className="project-kicker">
-                    PROJECT / {String(stage).padStart(2, "0")}
+                    나만의 AI 만들기 · {stage + 1} / 5
                   </span>
                   <h1>{selectedGoal.title}</h1>
                   <p>{selectedGoal.description}</p>
                 </div>
                 <div className="project-meta">
-                  <span className="live-dot" /> 로컬 데모 · 레시피 수동 저장
+                  <span className="live-dot" /> 언제든 이전 단계로 돌아갈 수
+                  있어요
                 </div>
               </div>
               <nav className="stage-rail" aria-label="파인튜닝 진행 단계">

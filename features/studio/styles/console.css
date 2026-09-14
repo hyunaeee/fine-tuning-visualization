@@ -42,13 +42,13 @@
 .bench-topbar > strong {
   color: #454541;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.08em;
 }
 
 .machine-topbar small {
   color: #777771;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .machine-lights {
@@ -67,8 +67,8 @@
 }
 
 .machine-lights i:first-child {
-  background: var(--orange);
-  box-shadow: 0 0 5px rgba(240, 90, 42, 0.55);
+  background: var(--accent);
+  box-shadow: 0 0 5px rgba(124, 58, 237, 0.55);
 }
 .machine-lights i:nth-child(2) {
   background: #d8b84f;
@@ -100,7 +100,7 @@
 
 .dial-label {
   color: #4e4e49;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -182,8 +182,8 @@
   width: 2px;
   height: 11px;
   border-radius: 2px;
-  background: var(--orange);
-  box-shadow: 0 0 4px rgba(240, 90, 42, 0.5);
+  background: var(--accent);
+  box-shadow: 0 0 4px rgba(124, 58, 237, 0.5);
   transform: translateX(-50%);
 }
 
@@ -209,7 +209,7 @@
   appearance: none;
   border: 1px solid #242422;
   border-radius: 2px;
-  background: var(--orange);
+  background: var(--accent);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -222,14 +222,14 @@
 
 .dial-scale i {
   color: #777771;
-  font-size: 6px;
+  font-size: 12px;
   font-style: normal;
 }
 
 .control-dial > small {
   margin-top: 7px;
   color: #767670;
-  font-size: 6px;
+  font-size: 12px;
   line-height: 1.35;
   text-align: center;
 }
@@ -262,14 +262,14 @@
 .machine-section-title span {
   color: #555550;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.07em;
 }
 
 .machine-section-title small {
   color: #7d7d77;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .switch-row {
@@ -308,12 +308,12 @@
 
 .toggle-switch.on {
   justify-content: flex-end;
-  border-color: #a84721;
-  background: var(--orange);
+  border-color: #7641bb;
+  background: var(--accent);
 }
 
 .toggle-switch.on i {
-  border-color: #a33f1c;
+  border-color: #6932ac;
   background: white;
 }
 .switch-row p {
@@ -324,17 +324,17 @@
 }
 .switch-row strong {
   color: #4c4c47;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 650;
 }
 .switch-row small {
   color: #777771;
-  font-size: 6px;
+  font-size: 12px;
 }
 .switch-row b {
   color: #5d5d57;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -355,12 +355,12 @@
 .signal-name span {
   color: #96968f;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
   letter-spacing: 0.09em;
 }
 .signal-name strong {
-  color: #ff875e;
-  font-size: 9px;
+  color: #c7a5ff;
+  font-size: 12px;
   font-weight: 550;
 }
 
@@ -380,7 +380,7 @@
 .signal-bars span {
   color: #666660;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
 }
 .signal-bars i {
   height: 5px;
@@ -392,8 +392,8 @@
 .signal-bars b {
   height: 100%;
   display: block;
-  background: var(--orange);
-  box-shadow: 0 0 4px rgba(240, 90, 42, 0.35);
+  background: var(--accent);
+  box-shadow: 0 0 4px rgba(124, 58, 237, 0.35);
   transition: width 160ms ease;
 }
 
@@ -410,7 +410,7 @@
   border-radius: 3px;
   background: #e3e3de;
   color: #555550;
-  font-size: 6px;
+  font-size: 12px;
 }
 
 .instant-preview {
@@ -438,7 +438,7 @@
   gap: 6px;
   color: #b9b9b3;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   letter-spacing: 0.08em;
 }
 
@@ -451,7 +451,7 @@
 }
 .preview-terminal-head small {
   color: #777771;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .preview-terminal-body {
@@ -464,12 +464,12 @@
 .preview-terminal-body span {
   color: #76766f;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
 }
 .preview-terminal-body p,
 .preview-terminal-body strong {
   margin: 0;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
   line-height: 1.55;
   white-space: pre-line;
@@ -491,12 +491,12 @@
 
 .preview-score span {
   color: #8d8d87;
-  font-size: 7px;
+  font-size: 12px;
 }
 .preview-score strong {
-  color: #ff875e;
+  color: #c7a5ff;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 10px;
+  font-size: 12px;
 }
 .preview-score i {
   height: 3px;
@@ -507,7 +507,7 @@
 .preview-score b {
   height: 100%;
   display: block;
-  background: var(--orange);
+  background: var(--accent);
 }
 
 .fine-tune-explainer {
@@ -516,29 +516,29 @@
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 12px;
-  border-left: 2px solid var(--orange);
-  background: var(--orange-soft);
+  border-left: 2px solid var(--accent);
+  background: var(--accent-soft);
 }
 
 .fine-tune-explainer > span {
-  color: #a95735;
-  font-size: 8px;
+  color: #7641bb;
+  font-size: 12px;
   font-weight: 650;
 }
 .fine-tune-explainer p {
   margin: 0;
-  color: #795541;
-  font-size: 8px;
+  color: #655179;
+  font-size: 12px;
   line-height: 1.6;
 }
 .fine-tune-explainer strong {
-  color: #51392c;
+  color: #47335e;
 }
 
 .score-pill.verifying {
-  border-color: #efc6b5;
-  background: var(--orange-soft);
-  color: #a74521 !important;
+  border-color: #e0d0f4;
+  background: var(--accent-soft);
+  color: #6932ac !important;
 }
 
 .test-bench {
@@ -562,7 +562,7 @@
   gap: 5px;
   color: #686862;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
 }
 
 .bench-topbar > div i {
@@ -574,7 +574,7 @@
 }
 
 .bench-topbar > div i.blink {
-  background: var(--orange);
+  background: var(--accent);
   animation: console-blink 0.35s ease infinite alternate;
 }
 
@@ -591,7 +591,7 @@
   margin-bottom: 7px;
   color: #64645e;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.05em;
 }
@@ -605,16 +605,16 @@
   border-radius: 4px;
   outline: 0;
   background: #f9f9f6;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.55;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
 }
 
 .test-input-area textarea:focus {
-  border-color: var(--orange);
+  border-color: var(--accent);
   box-shadow:
     inset 0 1px 2px rgba(0, 0, 0, 0.07),
-    0 0 0 2px rgba(240, 90, 42, 0.1);
+    0 0 0 2px rgba(124, 58, 237, 0.1);
 }
 
 .test-presets {
@@ -629,7 +629,7 @@
   border-radius: 4px;
   background: #edede8;
   color: #65655f;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .test-presets button.active {
@@ -657,11 +657,11 @@
 
 .mini-controls span {
   color: #5e5e58;
-  font-size: 7px;
+  font-size: 12px;
 }
 .mini-controls strong {
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   text-align: right;
 }
 .mini-controls input {
@@ -711,21 +711,21 @@
 }
 
 .live-response header span {
-  color: #ff875e;
+  color: #c7a5ff;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   letter-spacing: 0.07em;
 }
 .live-response header small {
   color: #74746e;
-  font-size: 6px;
+  font-size: 12px;
 }
 .live-response p {
   margin: 0;
   padding: 16px;
   flex: 1;
   color: #f3f3ef;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.75;
   white-space: pre-line;
   transition:
@@ -741,7 +741,7 @@
   border-top: 1px solid #3b3b37;
   border-bottom: 0;
   color: #75756f;
-  font-size: 6px;
+  font-size: 12px;
 }
 .response-type {
   color: #b8b8b2;
@@ -759,10 +759,10 @@
   margin-right: auto;
   color: #777771;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
 }
 .meter-score strong {
-  color: #ff875e;
+  color: #c7a5ff;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 28px;
   font-weight: 400;
@@ -770,7 +770,7 @@
 }
 .meter-score small {
   color: #777771;
-  font-size: 7px;
+  font-size: 12px;
 }
 .meter-list {
   margin-top: 18px;
@@ -785,7 +785,7 @@
 }
 .meter-list span {
   color: #999993;
-  font-size: 6px;
+  font-size: 12px;
 }
 .meter-list i {
   height: 4px;
@@ -796,12 +796,12 @@
 .meter-list b {
   height: 100%;
   display: block;
-  background: var(--orange);
+  background: var(--accent);
   transition: width 150ms ease;
 }
 .meter-list strong {
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 500;
   text-align: right;
 }
@@ -851,18 +851,18 @@
   gap: 4px;
 }
 .verification-grid strong {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 650;
 }
 .verification-grid small {
   color: #898983;
-  font-size: 6px;
+  font-size: 12px;
   line-height: 1.35;
 }
 .verification-grid b {
   color: var(--green);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
 }
 
 .test-history {
@@ -890,18 +890,18 @@
 }
 .history-table span {
   color: #95958f;
-  font-size: 7px;
+  font-size: 12px;
 }
 .history-table p {
   margin: 0;
   overflow: hidden;
-  font-size: 8px;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .history-table strong {
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 600;
   text-align: right;
 }
@@ -910,7 +910,7 @@
   border-radius: 999px;
   background: var(--green-soft);
   color: var(--green);
-  font-size: 6px;
+  font-size: 12px;
   font-style: normal;
   text-align: center;
 }
@@ -949,12 +949,12 @@
   color: white;
 }
 .audience-tabs strong {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 600;
 }
 .audience-tabs small {
   color: #969690;
-  font-size: 7px;
+  font-size: 12px;
   line-height: 1.4;
 }
 .audience-tabs button.selected small {
@@ -978,11 +978,11 @@
   height: 110px;
   right: -54px;
   top: -54px;
-  border: 1px solid #e7c9bc;
+  border: 1px solid #e0d0f4;
   border-radius: 50%;
   box-shadow:
-    0 0 0 22px #fff5f1,
-    0 0 0 23px #ead8d0;
+    0 0 0 22px #f6f0ff,
+    0 0 0 23px #e7ddf3;
 }
 
 .delivery-card-top {
@@ -1004,11 +1004,11 @@
 }
 .delivery-badge {
   padding: 4px 7px;
-  border: 1px solid #e4bba9;
+  border: 1px solid #d7bfef;
   border-radius: 999px;
-  background: var(--orange-soft);
-  color: #a74a25;
-  font-size: 7px;
+  background: var(--accent-soft);
+  color: #6c32b3;
+  font-size: 12px;
 }
 .delivery-card h3 {
   position: relative;
@@ -1025,7 +1025,7 @@
   max-width: 500px;
   margin: 7px 0 16px;
   color: #74746e;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.6;
 }
 
@@ -1042,7 +1042,7 @@
   border-radius: 6px;
   background: white;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .link-preview span {
@@ -1058,14 +1058,14 @@
   border-radius: 4px;
   background: #fafaf8;
   font-family: inherit;
-  font-size: 7px;
+  font-size: 12px;
 }
 .code-preview {
   color: #686862;
 }
 .code-preview span {
   margin-right: 5px;
-  color: var(--orange);
+  color: var(--accent);
   font-weight: 700;
 }
 .code-preview i {
@@ -1083,9 +1083,9 @@
   display: grid;
   place-items: center;
   border-radius: 5px;
-  background: var(--orange-soft);
-  color: var(--orange);
-  font-size: 7px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
   font-weight: 700;
 }
 .handoff-preview > div {
@@ -1094,12 +1094,12 @@
   gap: 3px;
 }
 .handoff-preview strong {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 600;
 }
 .handoff-preview small {
   color: #92928c;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .universal-package {
@@ -1138,7 +1138,7 @@
   border-radius: 50%;
   background: var(--green-soft);
   color: var(--green);
-  font-size: 8px;
+  font-size: 12px;
 }
 .package-list p {
   margin: 0;
@@ -1147,12 +1147,12 @@
   gap: 3px;
 }
 .package-list strong {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 600;
 }
 .package-list small {
   color: #969690;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .bundle-success {
@@ -1175,7 +1175,7 @@
   border-radius: 50%;
   background: var(--green);
   color: white;
-  font-size: 9px;
+  font-size: 12px;
 }
 .bundle-success > div {
   display: flex;
@@ -1183,12 +1183,12 @@
   gap: 3px;
 }
 .bundle-success strong {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 600;
 }
 .bundle-success small {
   color: #75827a;
-  font-size: 7px;
+  font-size: 12px;
 }
 .bundle-success button {
   padding: 6px 8px;
@@ -1196,7 +1196,7 @@
   border-radius: 5px;
   background: white;
   color: var(--green);
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .context-panel {
@@ -1216,19 +1216,19 @@
 .stage-explanation > span,
 .handoff-rule > span {
   color: #999993;
-  font-size: 8px;
+  font-size: 12px;
 }
 .context-block strong {
   margin-top: 7px;
   display: block;
   color: var(--black);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
 }
 .context-block p {
   margin: 7px 0 0;
   color: #85857f;
-  font-size: 8px;
+  font-size: 12px;
   line-height: 1.6;
 }
 .context-divider {
@@ -1248,12 +1248,12 @@
 }
 .context-list dt {
   color: #8d8d87;
-  font-size: 8px;
+  font-size: 12px;
 }
 .context-list dd {
   margin: 0;
   color: #55554f;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 600;
 }
 .context-list dd.positive {
@@ -1262,29 +1262,29 @@
 .stage-explanation strong {
   margin-top: 7px;
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
 }
 .stage-explanation p {
   margin: 6px 0 0;
   color: #85857f;
-  font-size: 8px;
+  font-size: 12px;
   line-height: 1.55;
 }
 .handoff-rule {
   margin-top: 16px;
   padding: 11px;
-  border: 1px solid #ead3c9;
+  border: 1px solid #e4d4f7;
   border-radius: 6px;
-  background: var(--orange-soft);
+  background: var(--accent-soft);
 }
 .handoff-rule span {
-  color: #b26b4c;
+  color: #8752b7;
 }
 .handoff-rule p {
   margin: 6px 0 0;
-  color: #875741;
-  font-size: 8px;
+  color: #75518f;
+  font-size: 12px;
   line-height: 1.55;
 }
 
@@ -1303,7 +1303,7 @@
 .platform-update > span {
   color: #7c682a;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.06em;
 }
@@ -1314,18 +1314,18 @@
 .platform-update strong {
   display: block;
   color: #4e4937;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 650;
 }
 .platform-update p {
   margin: 4px 0 0;
   color: #77705a;
-  font-size: 7px;
+  font-size: 12px;
   line-height: 1.55;
 }
 .platform-update a {
   color: #6d5b23;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 650;
   white-space: nowrap;
 }
@@ -1354,7 +1354,7 @@
   background: #353532;
   color: white;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 500;
 }
 
@@ -1392,14 +1392,14 @@
   grid-row: 1 / 6;
   color: #a2a29c;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
 }
 .availability {
   justify-self: end;
   grid-column: 3;
   padding: 3px 5px;
   border-radius: 999px;
-  font-size: 6px;
+  font-size: 12px;
 }
 .availability.current {
   background: var(--green-soft);
@@ -1412,20 +1412,20 @@
 .model-card > strong {
   grid-column: 2;
   grid-row: 1;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 650;
 }
 .model-card > small {
   grid-column: 2 / 4;
   margin-top: 5px;
   color: #85857f;
-  font-size: 7px;
+  font-size: 12px;
 }
 .model-card > p {
   grid-column: 2 / 4;
   margin: 8px 0;
   color: #666660;
-  font-size: 7px;
+  font-size: 12px;
   line-height: 1.45;
 }
 .model-card > div {
@@ -1439,12 +1439,12 @@
 }
 .model-card > div span {
   color: #74746e;
-  font-size: 6px;
+  font-size: 12px;
 }
 .model-card > div b {
-  color: var(--orange);
+  color: var(--accent);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 600;
 }
 .model-card > i {
@@ -1453,9 +1453,9 @@
   right: 9px;
   padding: 3px 6px;
   border-radius: 999px;
-  background: var(--orange);
+  background: var(--accent);
   color: white;
-  font-size: 6px;
+  font-size: 12px;
   font-style: normal;
 }
 
@@ -1477,8 +1477,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--orange);
-  box-shadow: 0 0 6px rgba(240, 90, 42, 0.75);
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(124, 58, 237, 0.75);
 }
 .active-recipe-strip > div {
   min-width: 0;
@@ -1489,11 +1489,11 @@
 .active-recipe-strip small {
   color: #8f8f89;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
 }
 .active-recipe-strip strong {
   overflow: hidden;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 550;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1503,16 +1503,16 @@
   border: 1px solid #53534e;
   border-radius: 4px;
   color: #b8b8b2;
-  font-size: 6px;
+  font-size: 12px;
 }
 .active-recipe-strip button {
   min-height: 28px;
   padding: 0 9px;
-  border: 1px solid #ff8054;
+  border: 1px solid #a578f4;
   border-radius: 5px;
-  background: var(--orange);
+  background: var(--accent);
   color: white;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 650;
 }
 
@@ -1537,7 +1537,7 @@
 .recipe-book-head > div > span {
   color: #686862;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.07em;
 }
@@ -1550,7 +1550,7 @@
 .recipe-book-head p {
   margin: 5px 0 0;
   color: #777771;
-  font-size: 7px;
+  font-size: 12px;
   line-height: 1.5;
 }
 .recipe-book-head > button {
@@ -1560,7 +1560,7 @@
   border-radius: 5px;
   background: var(--black);
   color: white;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -1590,24 +1590,24 @@
 .recipe-formula > i {
   align-self: center;
   color: #74746e;
-  font-size: 11px;
+  font-size: 12px;
   font-style: normal;
 }
 .recipe-formula span {
   color: #8b8b85;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
 }
 .recipe-formula strong {
   overflow: hidden;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 650;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .recipe-formula small {
   color: #90908a;
-  font-size: 6px;
+  font-size: 12px;
 }
 .recipe-formula .formula-score {
   border-color: #373734;
@@ -1619,7 +1619,7 @@
   color: #9b9b95;
 }
 .recipe-formula .formula-score strong {
-  color: #ff8259;
+  color: #d5bdff;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 13px;
 }
@@ -1634,7 +1634,7 @@
   border-radius: 5px;
   background: #f5faf7;
   color: #496b57;
-  font-size: 7px;
+  font-size: 12px;
 }
 .recipe-notice span {
   width: 15px;
@@ -1644,7 +1644,7 @@
   border-radius: 50%;
   background: var(--green);
   color: white;
-  font-size: 7px;
+  font-size: 12px;
 }
 
 .recipe-shelf {
@@ -1661,12 +1661,12 @@
   justify-content: space-between;
 }
 .shelf-title strong {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 650;
 }
 .shelf-title span {
   color: #85857f;
-  font-size: 7px;
+  font-size: 12px;
 }
 .recipe-cards {
   display: grid;
@@ -1692,9 +1692,9 @@
   place-items: center;
   border-radius: 4px;
   background: #3b3b38;
-  color: #ff8259;
+  color: #d5bdff;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 6px;
+  font-size: 12px;
   font-weight: 700;
 }
 .recipe-card > div {
@@ -1705,7 +1705,7 @@
 }
 .recipe-card strong {
   overflow: hidden;
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 650;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1713,7 +1713,7 @@
 .recipe-card small {
   overflow: hidden;
   color: #888882;
-  font-size: 6px;
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1723,7 +1723,7 @@
   border-radius: 4px;
   background: white;
   color: #65655f;
-  font-size: 6px;
+  font-size: 12px;
 }
 .recipe-card.saved {
   grid-template-columns: 24px minmax(0, 1fr) auto;
@@ -1737,7 +1737,7 @@
   border: 0;
   background: transparent;
   color: #aaa9a3;
-  font-size: 10px;
+  font-size: 12px;
 }
 .empty-recipe {
   width: 100%;
@@ -1764,11 +1764,11 @@
 }
 .empty-recipe strong {
   align-self: end;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 650;
 }
 .empty-recipe small {
   align-self: start;
   color: #8b8b85;
-  font-size: 7px;
+  font-size: 12px;
 }

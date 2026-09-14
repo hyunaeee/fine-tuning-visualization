@@ -31,7 +31,7 @@ export function DeliveryStep({ state, selectedModel, setStage }: Props) {
       </div>
       <div className="panel-heading delivery-heading">
         <div>
-          <span>STEP 4 · HANDOFF</span>
+          <span>함께 써볼 준비</span>
           <h2>누가 이 AI를 사용하게 되나요?</h2>
         </div>
         <span className="plain-badge">데모 전달 센터</span>

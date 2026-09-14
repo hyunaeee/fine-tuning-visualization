@@ -23,7 +23,7 @@ export function ContextPanel({
 }: Props) {
   return (
     <aside className="context-panel">
-      <p className="context-title">PROJECT CONTEXT</p>
+      <p className="context-title">지금까지 만든 설정</p>
       <div className="context-block">
         <span>목표</span>
         <strong>{selectedGoal.title}</strong>

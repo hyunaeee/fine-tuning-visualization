@@ -36,27 +36,27 @@ export function Sidebar({
           type="button"
           onClick={() => setStage(0)}
         >
-          <span>⌂</span> 만들기
+          <span>⌂</span> 시작하기
         </button>
         <button
           className="nav-item"
           type="button"
           onClick={() => openStudio("model-library")}
         >
-          <span>▦</span> 모델 라이브러리 <i>{modelCatalog.length}</i>
+          <span>▦</span> AI 고르기 <i>{modelCatalog.length}</i>
         </button>
         <button
           className="nav-item"
           type="button"
           onClick={() => openStudio("recipe-book")}
         >
-          <span>≡</span> 레시피 북 <i>{savedRecipes.length}</i>
+          <span>≡</span> 저장한 레시피 <i>{savedRecipes.length}</i>
         </button>
         <button className="nav-item" type="button" onClick={() => setStage(4)}>
-          <span>↗</span> 전달함
+          <span>↗</span> 결과 공유
         </button>
         <button className="nav-item" type="button" onClick={() => setStage(3)}>
-          <span>◫</span> 사용 기록
+          <span>◫</span> 답변 미리보기
         </button>
       </nav>
 
@@ -110,8 +110,8 @@ export function Sidebar({
       <div className="profile-row">
         <span className="profile-avatar">M</span>
         <span>
-          <strong>My workspace</strong>
-          <small>개인 워크스페이스</small>
+          <strong>나의 AI 작업실</strong>
+          <small>이 브라우저에 저장돼요</small>
         </span>
         <i>로컬</i>
       </div>

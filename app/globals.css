@@ -4,6 +4,7 @@
 @import "../features/studio/styles/start.css";
 @import "../features/studio/styles/workflow.css";
 @import "../features/studio/styles/console.css";
+@import "../features/studio/styles/lavender.css";
 @import "../features/studio/styles/responsive.css";
 
 button:disabled {

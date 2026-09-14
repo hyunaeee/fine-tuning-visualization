@@ -95,26 +95,27 @@ export function TuningConsole({
       <div className="assistant-note">
         <span className="assistant-mark">✳</span>
         <div>
-          <strong>기계의 다이얼을 맞추듯 조정하세요</strong>
+          <strong>정답은 없어요. 마음에 드는 답변을 찾아보세요.</strong>
           <p>
-            숫자를 몰라도 괜찮아요. 다이얼을 움직이면 예상 답변과 검증 계기판이
-            즉시 반응합니다. 만족스러운 지점에서 설정을 고정하면 돼요.
+            추천 AI가 미리 선택되어 있어요. 조절기를 움직여 말투와 길이를
+            바꾸고, 아래 답변 예시를 확인하세요. 마음에 들면 레시피로 저장하면
+            돼요.
           </p>
         </div>
       </div>
 
       <div className="panel-heading">
         <div>
-          <span>STEP 2 · TUNING CONSOLE</span>
-          <h2>AI의 행동을 직접 조율하세요</h2>
+          <span>내 취향으로 맞추기</span>
+          <h2>AI가 어떻게 말하면 좋을까요?</h2>
         </div>
         <span className={verifying ? "live-badge checking" : "live-badge"}>
-          <i /> {verifying ? "재계산 중" : "LIVE"}
+          <i /> {verifying ? "바꾸는 중" : "바로 미리보기"}
         </span>
       </div>
 
       <div className="platform-update">
-        <span>DEMO MODE</span>
+        <span>체험 안내</span>
         <div>
           <strong>모델을 고르고 조정 흐름을 체험하세요</strong>
           <p>
@@ -129,7 +130,7 @@ export function TuningConsole({
       <div className="active-recipe-strip">
         <span className="stove-light" />
         <div>
-          <small>NOW COOKING</small>
+          <small>지금 만드는 레시피</small>
           <strong>
             {selectedModel.name} × {tuningName}
           </strong>
@@ -146,19 +147,17 @@ export function TuningConsole({
 
       <BehaviorConsole {...behaviorProps} />
 
-      <RecipeBook {...recipeProps} />
-
       <div className="instant-preview">
         <div className="preview-terminal-head">
           <span>
-            <i /> INSTANT PREVIEW
+            <i /> 이렇게 답해요
           </span>
           <small>{verifying ? "설정 반영 중…" : "예시 미리보기"}</small>
         </div>
         <div className="preview-terminal-body">
-          <span>TEST INPUT</span>
+          <span>물어본 말</span>
           <p>{testQuestion}</p>
-          <span>TUNED OUTPUT</span>
+          <span>AI 답변 예시</span>
           <strong>{liveAnswer}</strong>
         </div>
         <div className="preview-score">
@@ -169,6 +168,8 @@ export function TuningConsole({
           </i>
         </div>
       </div>
+
+      <RecipeBook {...recipeProps} />
 
       <div className="fine-tune-explainer">
         <span>이 레시피의 효과</span>
@@ -192,7 +193,7 @@ export function TuningConsole({
           type="button"
           onClick={() => setStage(3)}
         >
-          이 설정으로 실시간 테스트 <span>→</span>
+          직접 질문해보기 <span>→</span>
         </button>
       </div>
     </div>

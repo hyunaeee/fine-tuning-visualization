@@ -53,6 +53,7 @@ export function useStudio() {
       document
         .getElementById(anchor)
         ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    else window.scrollTo({ top: 0, behavior: "instant" });
   }, [state.stage, anchor]);
   const setStage = (stage: number) => {
     if (Number.isInteger(stage) && stage >= 0 && stage <= 4)

@@ -10,7 +10,10 @@ test("production HTML is useful before browser hydration", async () => {
   assert.match(html, /<html lang="ko"/);
   assert.equal((html.match(/<h1[ >]/g) ?? []).length, 1);
   assert.match(html, /무엇을 넣고, 무엇을 받나요/);
-  assert.match(html, /직접|어떤 일을 맡길/);
+  assert.match(html, /내 일에 딱 맞는 AI/);
+  assert.match(html, /첫 화면 친절한 말투/);
+  assert.match(html, /내 AI 만들기/);
+  assert.match(html, /간단한 사용 순서/);
   assert.match(html, /고객 문의에 답하는 AI/);
   assert.doesNotMatch(
     html,

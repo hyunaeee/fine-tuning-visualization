@@ -48,6 +48,22 @@
     align-items: center;
     gap: 7px;
   }
+  .mobile-recipes {
+    display: block;
+    min-height: 40px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--accent-dark);
+    font-size: 12px;
+  }
+  .mobile-brand span {
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    font-size: 22px;
+  }
   .breadcrumbs {
     display: none;
   }
@@ -56,7 +72,7 @@
   }
   .start-view {
     width: min(100% - 28px, 620px);
-    padding: 60px 0 50px;
+    padding: 36px 0 50px;
   }
   .start-view h1 {
     font-size: clamp(34px, 10vw, 48px);
@@ -146,6 +162,8 @@
   .stage-rail {
     grid-template-columns: repeat(5, minmax(54px, 1fr));
     overflow-x: auto;
+    gap: 2px;
+    padding: 5px;
   }
   .stage-rail button {
     height: 55px;
@@ -158,7 +176,7 @@
     height: 18px;
   }
   .stage-rail strong {
-    font-size: 8px;
+    font-size: 11px;
   }
   .panel-content {
     padding: 17px;
@@ -167,7 +185,7 @@
     align-items: flex-start;
   }
   .panel-heading h2 {
-    font-size: 18px;
+    font-size: 21px;
   }
   .platform-update {
     grid-template-columns: 1fr;
@@ -190,7 +208,11 @@
     flex-direction: column;
   }
   .recipe-formula {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .recipe-formula > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
   .recipe-formula > i {
     display: none;
@@ -315,6 +337,143 @@
   }
   .stage-explanation {
     margin-top: 15px;
+  }
+  .welcome-hero {
+    gap: 18px;
+  }
+  .welcome-copy {
+    width: 100%;
+  }
+  .welcome-eyebrow {
+    font-size: 12px;
+  }
+  .welcome-reassurance {
+    gap: 9px;
+    font-size: 10px;
+  }
+  .welcome-path {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 21px;
+    margin-top: 40px;
+  }
+  .welcome-path > div {
+    gap: 15px;
+  }
+  .welcome-path strong {
+    font-size: 14px;
+  }
+  .welcome-path small {
+    display: block;
+    font-size: 12px;
+  }
+  .welcome-path i {
+    display: block;
+  }
+  .welcome-machine-scene {
+    width: calc(100% - 32px);
+    padding-top: 26px;
+  }
+  .welcome-machine {
+    transform: rotateY(-4deg) rotateZ(1deg);
+    padding: 18px;
+  }
+  .welcome-knob-face > strong {
+    font-size: 16px;
+  }
+  .dial-invitation > strong {
+    font-size: 20px;
+  }
+  .welcome-response {
+    min-height: 143px;
+  }
+  .floating-recipe {
+    padding: 13px 15px;
+  }
+  .floating-recipe strong {
+    font-size: 11px;
+  }
+  .floating-recipe small {
+    font-size: 10px;
+  }
+  .spark-one {
+    right: -12px;
+  }
+  .spark-two {
+    left: -16px;
+  }
+  .prompt-box {
+    padding: 16px;
+  }
+  .prompt-footer {
+    flex-wrap: wrap;
+  }
+  .prompt-footer > div {
+    flex: 1;
+  }
+  .prompt-footer > div > span {
+    font-size: 10px;
+  }
+  .send-button {
+    padding: 0 12px;
+    gap: 10px;
+  }
+  .suggestion-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .model-library {
+    padding: 16px;
+  }
+  .machine-section-title.library-title {
+    align-items: flex-start;
+    gap: 8px;
+    flex-direction: column;
+  }
+  .model-card {
+    min-height: 175px;
+  }
+  .stage-rail button > span {
+    width: 22px;
+    height: 22px;
+  }
+  .panel-heading {
+    gap: 10px;
+  }
+  .panel-heading .live-badge {
+    font-size: 10px;
+  }
+  .active-recipe-strip {
+    padding: 14px 10px;
+    gap: 7px;
+  }
+  .active-recipe-strip strong {
+    font-size: 11px;
+  }
+  .active-recipe-strip button {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+  .control-dial {
+    padding: 16px 10px;
+  }
+  .dial-bank {
+    padding: 18px 12px;
+    gap: 11px;
+  }
+  .project-titlebar h1 {
+    font-size: 26px;
+  }
+  .preview-terminal-body {
+    padding: 18px;
+    gap: 8px;
+  }
+  .primary-action {
+    font-size: 12px;
+    padding: 12px;
+  }
+  .showcase-heading h2 {
+    font-size: 23px;
   }
 }
 

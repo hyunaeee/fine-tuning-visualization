@@ -32,7 +32,7 @@
 
 .brand-glyph,
 .mobile-brand span {
-  color: var(--orange);
+  color: var(--accent);
   font-size: 20px;
   line-height: 1;
 }
@@ -102,7 +102,7 @@
   padding: 2px 5px;
   border-radius: 999px;
   background: #ddddd7;
-  font-size: 9px;
+  font-size: 12px;
   font-style: normal;
   text-align: center;
 }
@@ -115,7 +115,7 @@
   margin: 0 0 7px;
   padding: 0 9px;
   color: #8a8a84;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
@@ -149,7 +149,7 @@
   background: #fff;
   color: #686862;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -164,7 +164,7 @@
 .project-row strong,
 .profile-row strong {
   overflow: hidden;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -173,7 +173,7 @@
 .project-row small,
 .profile-row small {
   color: #8a8a84;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .project-status {
@@ -205,12 +205,12 @@
   align-items: center;
   justify-content: space-between;
   color: #777771;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .plan-card strong {
   color: var(--ink);
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .plan-track {
@@ -225,12 +225,12 @@
   width: 18%;
   height: 100%;
   display: block;
-  background: var(--orange);
+  background: var(--accent);
 }
 
 .plan-card small {
   color: #999992;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .profile-row {
@@ -263,7 +263,7 @@
   border-radius: 50%;
   background: var(--black);
   color: white;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -295,7 +295,7 @@
   gap: 8px;
   min-width: 0;
   color: #8a8a84;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .breadcrumbs i {
@@ -321,7 +321,7 @@
   align-items: center;
   gap: 6px;
   color: #7b7b75;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .demo-label i,
@@ -342,7 +342,7 @@
   border: 1px solid var(--line-strong);
   border-radius: 6px;
   background: white;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
 }
 

@@ -44,8 +44,8 @@ export function TestBench({
 
       <div className="panel-heading">
         <div>
-          <span>STEP 3 · LIVE TEST BENCH</span>
-          <h2>바꿔보고, 바로 검증하세요</h2>
+          <span>답변 직접 확인하기</span>
+          <h2>이 답변, 마음에 드나요?</h2>
         </div>
         <span className={verifying ? "score-pill verifying" : "score-pill"}>
           {verifying ? "갱신 중" : `${verification.overall} / 100`}
@@ -55,7 +55,7 @@ export function TestBench({
       <div className="test-bench">
         <div className="bench-topbar">
           <span className="machine-screw" />
-          <strong>LOCAL PREVIEW UNIT</strong>
+          <strong>나의 AI와 대화해보기</strong>
           <div>
             <i className={verifying ? "blink" : ""} />{" "}
             {verifying ? "RUNNING" : "PREVIEW"}
@@ -66,7 +66,7 @@ export function TestBench({
         <div className="bench-controls">
           <div className="test-input-area">
             <label htmlFor="live-test-question">
-              TEST INPUT / 질문을 바꿔보세요
+              AI에게 어떤 말을 해볼까요?
             </label>
             <textarea
               maxLength={2000}
@@ -82,7 +82,7 @@ export function TestBench({
                   className={testQuestion === question ? "active" : ""}
                   onClick={() => setTestQuestion(question)}
                 >
-                  테스트 {index + 1}
+                  예시 질문 {index + 1}
                 </button>
               ))}
             </div>
@@ -109,7 +109,7 @@ export function TestBench({
         <div className="live-output-grid">
           <article className="live-response">
             <header>
-              <span>TUNED OUTPUT</span>
+              <span>이렇게 답해요 · 예시</span>
               <small>
                 {selectedModel.name} / {goal}-v1
               </small>
