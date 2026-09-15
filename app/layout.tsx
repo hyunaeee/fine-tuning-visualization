@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const title = "모델리 | 목적별 모델을 고르고 레시피로 저장하는 AI 튜닝 콘솔";
+const title = "모델리 | 업무 특화 AI를 설계하는 파인튜닝 작업실";
 const description =
-  "업무 자료를 입력하면 어떤 AI 답변과 전달 결과를 받는지 예시로 확인하고, 목적에 맞는 모델과 튜닝 레시피를 저장해 즉시 검증하는 워크스페이스입니다.";
+  "정책 준수, 기술지원 분류, 문서 구조화, 콘텐츠 검수를 위한 데이터·출력·검증 기준을 설계합니다. 업무별 레시피와 평가 계획을 공유하는 프런트엔드 제품 데모입니다.";
 const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const siteUrl = productionHost
   ? `https://${productionHost}`

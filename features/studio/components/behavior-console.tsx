@@ -77,7 +77,7 @@ export function BehaviorConsole({
               </span>
               <p>
                 <strong>회사 규칙과 판단 기준</strong>
-                <small>교환·환불처럼 반복되는 정책</small>
+                <small>예외 이관, 분류 기준, 미확인 값 처리</small>
               </p>
               <b>{policy}%</b>
             </div>

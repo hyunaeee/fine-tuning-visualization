@@ -1,4 +1,4 @@
-export type GoalId = "support" | "brand" | "organize";
+export type GoalId = "support" | "brand" | "organize" | "technical";
 export type AudienceId = "operator" | "web" | "developer" | "agency";
 export type Stage = 0 | 1 | 2 | 3 | 4;
 export type ModelId =

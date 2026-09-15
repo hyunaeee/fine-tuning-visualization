@@ -1,5 +1,6 @@
 import type { StudioController } from "../hooks/use-studio";
 import { modelCatalog, presetRecipes } from "../data/catalog";
+import { purposeBriefs } from "../data/purposes";
 const formatDate = (value: string) =>
   Number.isNaN(Date.parse(value))
     ? value
@@ -76,7 +77,7 @@ export function RecipeBook({
         </div>
         <i>＋</i>
         <div>
-          <span>내 취향</span>
+          <span>동작 설정</span>
           <strong>
             {policy} · {warmth} · {concision} · {creativity}
           </strong>
@@ -108,13 +109,7 @@ export function RecipeBook({
         <div className="recipe-cards">
           {presetRecipes.map((recipe) => (
             <article className="recipe-card" key={recipe.id}>
-              <span>
-                {recipe.goal === "support"
-                  ? "CS"
-                  : recipe.goal === "brand"
-                    ? "BR"
-                    : "DOC"}
-              </span>
+              <span>{purposeBriefs[recipe.goal].badge}</span>
               <div>
                 <strong>{recipe.name}</strong>
                 <small>

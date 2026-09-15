@@ -1,6 +1,8 @@
 import type { StudioController } from "../hooks/use-studio";
 import { goals } from "../data/catalog";
 import { WelcomeMachine } from "./welcome-machine";
+import { purposeBriefs } from "../data/purposes";
+import { PurposePlan } from "./purpose-plan";
 type Props = Pick<
   StudioController,
   | "prompt"
@@ -31,16 +33,17 @@ export function StartView({
       <div className="welcome-hero">
         <div className="welcome-copy">
           <p className="welcome-eyebrow">
-            <span>✦</span> 누구나 만드는 나만의 AI
+            <span>✦</span> 업무 특화 AI를 설계하는 파인튜닝 작업실
           </p>
           <h1>
-            내 일에 딱 맞는 AI,
+            우리 업무의 기준을,
             <br />
-            <em>내 손으로 가볍게.</em>
+            <em>AI의 기준으로.</em>
           </h1>
           <p className="lead">
-            어려운 코드는 모델리에게 맡기세요.
-            <br />할 일을 고르고, 말투를 맞추고, 답변을 확인하면 돼요.
+            정책 준수, 티켓 분류, 문서 추출까지.
+            <br />
+            개선할 문제와 검증 기준부터 정해보세요.
           </p>
 
           <div
@@ -48,7 +51,7 @@ export function StartView({
             role="group"
             aria-label="빠른 시작 예시"
           >
-            {goals.map((item, index) => (
+            {goals.map((item) => (
               <button
                 key={item.id}
                 type="button"
@@ -60,25 +63,11 @@ export function StartView({
                   className={"goal-token goal-token-" + item.id}
                   aria-hidden="true"
                 >
-                  {["☏", "✎", "▤"][index]}
+                  {purposeBriefs[item.id].icon}
                 </span>
                 <span>
-                  <strong>
-                    {
-                      ["고객 문의 답변", "우리 브랜드 글쓰기", "긴 문서 정리"][
-                        index
-                      ]
-                    }
-                  </strong>
-                  <small>
-                    {
-                      [
-                        "친절하고 일관된 응대",
-                        "우리다운 말투와 표현",
-                        "핵심만 쏙, 빠짐없이",
-                      ][index]
-                    }
-                  </small>
+                  <strong>{purposeBriefs[item.id].shortTitle}</strong>
+                  <small>{purposeBriefs[item.id].subtitle}</small>
                 </span>
                 <i aria-hidden="true">{goal === item.id ? "✓" : ""}</i>
               </button>
@@ -92,14 +81,16 @@ export function StartView({
               if (prompt.trim()) setStage(1);
             }}
           >
-            <label htmlFor="project-prompt">어떤 일을 맡기고 싶나요?</label>
+            <label htmlFor="project-prompt">
+              어떤 업무 오류를 줄이고 싶나요?
+            </label>
             <textarea
               id="project-prompt"
               value={prompt}
               maxLength={2000}
               onChange={(event) => setPrompt(event.target.value)}
               aria-label="만들고 싶은 AI 설명"
-              placeholder="예: 우리 쇼핑몰 정책에 맞춰 고객 문의에 답하는 AI를 만들고 싶어요."
+              placeholder="예: 정책 조건이 빠지는 상담 답변을 줄이고, 예외는 담당자에게 이관하고 싶어요."
             />
             <div className="prompt-footer">
               <div>
@@ -135,9 +126,9 @@ export function StartView({
 
       <div className="welcome-path" aria-label="간단한 사용 순서">
         {[
-          ["1", "할 일을 골라요", "어떤 도움이 필요한가요?"],
-          ["2", "내 취향으로 조절해요", "말투와 답변 길이를 맞춰요"],
-          ["3", "확인하고 보관해요", "마음에 들면 레시피로 저장"],
+          ["1", "문제를 정의해요", "반복되는 오류와 업무 기준"],
+          ["2", "예시로 설계해요", "데이터와 출력 동작을 확인"],
+          ["3", "검증 계획을 남겨요", "평가 항목과 레시피를 공유"],
         ].map(([number, title, text]) => (
           <div key={number}>
             <span>{number}</span>
@@ -149,6 +140,8 @@ export function StartView({
           </div>
         ))}
       </div>
+
+      <PurposePlan goal={goal} />
 
       <section className="io-showcase" aria-labelledby="io-showcase-title">
         <div className="showcase-heading">
@@ -192,7 +185,7 @@ export function StartView({
           <article className="io-card output-card">
             <div className="io-card-head">
               <span>02 / 받을 것</span>
-              <strong>바로 사용할 수 있는 결과물</strong>
+              <strong>검토와 연동을 위한 설계 결과물</strong>
             </div>
             <div className="output-answer-sample">
               <span>AI 답변 예시</span>
@@ -220,7 +213,9 @@ export function StartView({
         <div className="showcase-heading">
           <div>
             <span>사용 모습 미리보기</span>
-            <h2 id="outcome-showcase-title">내가 원하는 답변에 더 가까이</h2>
+            <h2 id="outcome-showcase-title">
+              반복되는 오류, 이렇게 바꾸고 싶어요
+            </h2>
           </div>
           <small>제품 데모의 가상 시나리오 · 실측 성과가 아닙니다</small>
         </div>
@@ -238,13 +233,7 @@ export function StartView({
               className={goal === item.id ? "selected" : ""}
               onClick={() => chooseGoal(item.id)}
             >
-              <span>
-                {item.id === "support"
-                  ? "CS"
-                  : item.id === "brand"
-                    ? "BR"
-                    : "DOC"}
-              </span>
+              <span>{purposeBriefs[item.id].badge}</span>
               <div>
                 <strong>{item.title}</strong>
                 <small>{item.description}</small>
@@ -257,7 +246,7 @@ export function StartView({
           <article className="result-before">
             <header>
               <span>BEFORE</span>
-              <small>기본 AI 답변</small>
+              <small>실패 유형 예시</small>
             </header>
             <p>{selectedOutcome.before}</p>
             <footer>
@@ -267,18 +256,18 @@ export function StartView({
           <article className="result-after">
             <header>
               <span>AFTER</span>
-              <small>레시피 적용 답변</small>
+              <small>목표 출력 예시 · 학습 결과 아님</small>
             </header>
             <p>{selectedGoal.answer}</p>
             <footer>
-              <i>✓</i> 원하는 규칙·말투·형식을 반복해서 유지해요
+              <i>◇</i> 이 기준을 만족하는지는 별도 평가셋으로 확인해요
             </footer>
           </article>
         </div>
 
         <div className="usage-result">
           <div className="usage-copy">
-            <span>사용 결과</span>
+            <span>실무 적용 시나리오 · 실제 연동 전</span>
             <strong>{selectedOutcome.workflowResult}</strong>
           </div>
           <div className="result-metrics">
@@ -307,15 +296,17 @@ export function StartView({
         <div className="explainer-grid">
           <article>
             <span>01</span>
-            <strong>좋은 예시를 모아요</strong>
-            <p>질문과 기대 답변의 샘플을 보고 필요한 자료를 이해해요.</p>
+            <strong>정답과 예외를 함께 모아요</strong>
+            <p>
+              전문가가 검수한 예시를 준비하고, 평가용 사례는 학습에서 분리해요.
+            </p>
           </article>
           <article>
             <span>02</span>
             <strong>모델을 고르고 레시피로 저장해요</strong>
             <p>
-              목적별 추천 모델을 고른 뒤 규칙, 말투, 길이를 맞춰 다시 쓸 수 있는
-              레시피로 보관해요.
+              기준 모델과 학습 후보를 비교할 계획을 세우고, 업무 기준과 예시
+              설정을 레시피로 보관해요.
             </p>
           </article>
           <article>

@@ -3,6 +3,7 @@ import { recipeSettings } from "./workspace.ts";
 import { parseSettings } from "./validation.ts";
 import { simulate } from "./simulation.ts";
 import type { AudienceId, RecipeSettings } from "./types.ts";
+import { evaluationProtocol, purposeBriefs } from "../data/purposes.ts";
 
 export function shareFragment(settings: RecipeSettings): string {
   return (
@@ -38,6 +39,19 @@ export function buildHandoff(
     model: { id: model.id, name: model.name },
     recipe: recipeSettings(settings),
     inputExamples: outcomeExamples[settings.goal].inputAssets,
+    purpose: {
+      problem: purposeBriefs[settings.goal].problem,
+      trainingTarget: purposeBriefs[settings.goal].trainingTarget,
+      baseline: purposeBriefs[settings.goal].baseline,
+      dataRule: purposeBriefs[settings.goal].dataRule,
+    },
+    evaluationPlan: {
+      status: "not-run",
+      protocol: evaluationProtocol,
+      criteria: purposeBriefs[settings.goal].evaluation.map((criterion) => ({
+        ...criterion,
+      })),
+    },
     outputExample: preview.answer,
     indicators: {
       kind: "configuration-simulation",

@@ -1,5 +1,6 @@
 import type { StudioController } from "../hooks/use-studio";
 import { testQuestions } from "../data/catalog";
+import { PurposePlan } from "./purpose-plan";
 type Props = Pick<
   StudioController,
   | "verifying"
@@ -37,7 +38,8 @@ export function TestBench({
           <strong>질문이나 다이얼을 바꾸면 예시를 다시 계산합니다</strong>
           <p>
             바뀐 예시 답변과 설정 지표를 같은 화면에서 확인하세요. 지표는 다이얼
-            값의 시뮬레이션이며 모델 성능·안전성 평가가 아닙니다.
+            값의 시뮬레이션이며 모델 성능·안전성 평가가 아닙니다. 준비된 예시
+            질문만 지원하며 임의 입력의 내용은 분석하지 않습니다.
           </p>
         </div>
       </div>
@@ -45,12 +47,14 @@ export function TestBench({
       <div className="panel-heading">
         <div>
           <span>답변 직접 확인하기</span>
-          <h2>이 답변, 마음에 드나요?</h2>
+          <h2>이 출력이 업무 기준을 지키나요?</h2>
         </div>
         <span className={verifying ? "score-pill verifying" : "score-pill"}>
-          {verifying ? "갱신 중" : `${verification.overall} / 100`}
+          {verifying ? "갱신 중" : "예시 미리보기"}
         </span>
       </div>
+
+      <PurposePlan goal={goal} evaluationOnly />
 
       <div className="test-bench">
         <div className="bench-topbar">
@@ -125,7 +129,7 @@ export function TestBench({
 
           <aside className="validation-meter">
             <div className="meter-score">
-              <span>DEMO INDEX</span>
+              <span>설정 성향 · 실측 아님</span>
               <strong>{verification.overall}</strong>
               <small>/ 100</small>
             </div>

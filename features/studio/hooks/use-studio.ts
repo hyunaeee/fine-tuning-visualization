@@ -72,7 +72,7 @@ export function useStudio() {
       setter: (value: number) => setDial("policy", value),
       low: "유연",
       high: "엄격",
-      description: "회사 정책을 우선하는 정도",
+      description: "제공된 업무 기준을 반영하는 예시 강도",
     },
     {
       label: "친절한 말투",

@@ -14,6 +14,7 @@ export const exampleCounts: Record<GoalId, number> = {
   support: 84,
   brand: 120,
   organize: 60,
+  technical: 96,
 };
 export const defaultDials = {
   policy: 88,

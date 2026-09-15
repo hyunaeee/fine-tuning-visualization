@@ -117,8 +117,10 @@ export function DeliveryStep({ state, selectedModel, setStage }: Props) {
           <div>
             <span>✓</span>
             <p>
-              <strong>전달물 제안</strong>
-              <small>선택한 목적에 어울리는 결과물 목록</small>
+              <strong>업무 목적·검증 계획</strong>
+              <small>
+                해결할 오류, 기준 모델 비교 방법, 미실행 상태의 평가 항목
+              </small>
             </p>
           </div>
         </div>

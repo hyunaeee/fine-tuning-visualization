@@ -74,23 +74,25 @@ export function Sidebar({
         >
           <span className="project-icon">CS</span>
           <span>
-            <strong>고객 응대 AI</strong>
+            <strong>정책 준수 상담</strong>
             <small>예시 프로젝트</small>
           </span>
           <i className="project-status ready" />
         </button>
         <button
-          className={goal === "brand" ? "project-row selected" : "project-row"}
+          className={
+            goal === "technical" ? "project-row selected" : "project-row"
+          }
           type="button"
           onClick={() => {
-            chooseGoal("brand");
+            chooseGoal("technical");
             setStage(1);
           }}
         >
-          <span className="project-icon">BR</span>
+          <span className="project-icon">OPS</span>
           <span>
-            <strong>브랜드 카피</strong>
-            <small>초안</small>
+            <strong>기술지원 분류</strong>
+            <small>예시 프로젝트</small>
           </span>
           <i className="project-status" />
         </button>

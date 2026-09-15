@@ -1469,6 +1469,7 @@ summary:focus-visible {
   color: #4b5b71;
 }
 .outcome-tabs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border-color: var(--line);
   border-radius: 16px;
 }
@@ -1492,6 +1493,8 @@ summary:focus-visible {
   background: white;
 }
 .result-comparison p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-size: 14px;
   line-height: 1.8;
 }

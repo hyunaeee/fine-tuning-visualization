@@ -2,6 +2,7 @@ import type { StudioController } from "../hooks/use-studio";
 import { ModelRack } from "./model-rack";
 import { BehaviorConsole } from "./behavior-console";
 import { RecipeBook } from "./recipe-book";
+import { optimizationSources, purposeBriefs } from "../data/purposes";
 type Props = Pick<
   StudioController,
   | "selectedModel"
@@ -95,19 +96,18 @@ export function TuningConsole({
       <div className="assistant-note">
         <span className="assistant-mark">✳</span>
         <div>
-          <strong>정답은 없어요. 마음에 드는 답변을 찾아보세요.</strong>
+          <strong>업무 기준을 지키는 출력인지 비교해보세요.</strong>
           <p>
-            추천 AI가 미리 선택되어 있어요. 조절기를 움직여 말투와 길이를
-            바꾸고, 아래 답변 예시를 확인하세요. 마음에 들면 레시피로 저장하면
-            돼요.
+            {purposeBriefs[goal].trainingTarget} 다이얼은 이 동작을 이해하기
+            위한 데모 조절기이며 실제 학습 설정이 아닙니다.
           </p>
         </div>
       </div>
 
       <div className="panel-heading">
         <div>
-          <span>내 취향으로 맞추기</span>
-          <h2>AI가 어떻게 말하면 좋을까요?</h2>
+          <span>업무 기준으로 동작 설계</span>
+          <h2>어떤 동작을 일관되게 만들까요?</h2>
         </div>
         <span className={verifying ? "live-badge checking" : "live-badge"}>
           <i /> {verifying ? "바꾸는 중" : "바로 미리보기"}
@@ -121,6 +121,13 @@ export function TuningConsole({
           <p>
             모델 목록과 순서는 시연용 데이터입니다. 아래 답변과 지표는 로컬
             시뮬레이션이며 실제 API·학습 작업은 실행하지 않습니다.
+          </p>
+          <p>
+            2026-09-15 공식 문서 기준, OpenAI 파인튜닝은 신규 사용자 접근이
+            제한됩니다. 기존 계정도 지원 모델과 종료 일정을 확인해야 합니다.{" "}
+            <a href={optimizationSources.sft} target="_blank" rel="noreferrer">
+              공식 안내 ↗
+            </a>
           </p>
         </div>
       </div>

@@ -86,7 +86,7 @@ test("file selection validates type and size, without inventing data counts", ()
   assert.equal(next.fileError, "");
   assert(!("exampleCount" in next));
 });
-for (const goal of ["support", "brand", "organize"] as const) {
+for (const goal of ["support", "brand", "organize", "technical"] as const) {
   test(goal + " questions produce distinct examples", () => {
     const state = studioReducer(initialState(), { type: "goal", goal });
     const results = testQuestions[goal].map((question) =>
