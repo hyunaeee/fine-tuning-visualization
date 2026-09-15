@@ -93,48 +93,6 @@
     max-width: none;
     text-align: left;
   }
-  .io-pipeline {
-    grid-template-columns: 1fr;
-  }
-  .pipeline-engine {
-    min-height: 104px;
-    border: 0;
-    border-top: 1px solid #c6c6c0;
-    border-bottom: 1px solid #c6c6c0;
-  }
-  .pipeline-engine i {
-    right: 50%;
-    top: auto;
-    bottom: -11px;
-    transform: translateX(50%) rotate(90deg);
-  }
-  .outcome-tabs {
-    grid-template-columns: 1fr;
-  }
-  .outcome-tabs button {
-    min-height: 58px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .outcome-tabs button:last-child {
-    border-bottom: 0;
-  }
-  .result-comparison {
-    grid-template-columns: 1fr;
-  }
-  .result-comparison article:first-child {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .result-comparison article {
-    min-height: 150px;
-  }
-  .usage-result {
-    grid-template-columns: 1fr;
-  }
-  .usage-result > button {
-    justify-self: start;
-  }
   .start-explainer {
     margin-top: 50px;
   }
@@ -198,7 +156,11 @@
     grid-template-columns: 1fr;
   }
   .active-recipe-strip {
-    grid-template-columns: 10px minmax(0, 1fr) auto;
+    grid-template-columns: 10px minmax(0, 1fr);
+  }
+  .active-recipe-strip button {
+    grid-column: 2;
+    justify-self: start;
   }
   .active-recipe-strip > span:nth-last-of-type(1) {
     display: none;
@@ -397,7 +359,7 @@
     font-size: 10px;
   }
   .spark-one {
-    right: -12px;
+    right: 0;
   }
   .spark-two {
     left: -16px;
@@ -474,6 +436,62 @@
   }
   .showcase-heading h2 {
     font-size: 21px;
+  }
+}
+
+@container models (max-width: 700px) {
+  .model-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container models (max-width: 480px) {
+  .model-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@container recipes (max-width: 600px) {
+  .recipe-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .recipe-formula {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .recipe-formula > i {
+    display: none;
+  }
+}
+
+@container recipes (max-width: 280px) {
+  .recipe-formula {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 360px) {
+  .stage-rail {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .stage-rail button {
+    padding-inline: 2px;
+  }
+  .stage-rail strong {
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .welcome-dial-layout {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+  .dial-invitation {
+    text-align: center;
+  }
+  .dial-invitation > strong {
+    word-break: keep-all;
+  }
+  .welcome-machine-footer > span:last-child {
+    display: none;
   }
 }
 

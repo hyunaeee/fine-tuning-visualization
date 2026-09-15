@@ -1078,7 +1078,7 @@
   font-family: inherit;
 }
 .handoff-preview > span {
-  width: 29px;
+  flex: 0 0 40px;
   height: 29px;
   display: grid;
   place-items: center;
@@ -1089,9 +1089,12 @@
   font-weight: 700;
 }
 .handoff-preview > div {
+  min-width: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 3px;
+  overflow-wrap: anywhere;
 }
 .handoff-preview strong {
   font-size: 12px;
@@ -1331,6 +1334,7 @@
 }
 
 .model-library {
+  container: models / inline-size;
   margin-top: 12px;
   padding: 14px;
   scroll-margin-top: 78px;
@@ -1492,11 +1496,10 @@
   font-size: 12px;
 }
 .active-recipe-strip strong {
-  overflow: hidden;
   font-size: 12px;
   font-weight: 550;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 .active-recipe-strip > span:nth-last-of-type(1) {
   padding: 4px 6px;
@@ -1517,6 +1520,7 @@
 }
 
 .recipe-book {
+  container: recipes / inline-size;
   margin-top: 14px;
   padding: 15px;
   scroll-margin-top: 78px;
@@ -1599,11 +1603,9 @@
   font-size: 12px;
 }
 .recipe-formula strong {
-  overflow: hidden;
   font-size: 12px;
   font-weight: 650;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 .recipe-formula small {
   color: #4b5b71;
@@ -1704,18 +1706,15 @@
   gap: 4px;
 }
 .recipe-card strong {
-  overflow: hidden;
   font-size: 12px;
   font-weight: 650;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 .recipe-card small {
-  overflow: hidden;
   color: #4b5b71;
   font-size: 12px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 .recipe-card > button {
   padding: 5px 6px;
